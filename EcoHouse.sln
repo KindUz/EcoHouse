@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32407.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcoHouse", "EcoHouse\EcoHouse.csproj", "{B20965D4-3F0B-4BFC-B81F-37A0AD28E65B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcoHouse.Storage", "EcoHouse.Storage\EcoHouse.Storage.csproj", "{D2262005-B43B-4B79-9DD0-D11BFA232ABD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B20965D4-3F0B-4BFC-B81F-37A0AD28E65B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B20965D4-3F0B-4BFC-B81F-37A0AD28E65B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B20965D4-3F0B-4BFC-B81F-37A0AD28E65B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B20965D4-3F0B-4BFC-B81F-37A0AD28E65B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2262005-B43B-4B79-9DD0-D11BFA232ABD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2262005-B43B-4B79-9DD0-D11BFA232ABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2262005-B43B-4B79-9DD0-D11BFA232ABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2262005-B43B-4B79-9DD0-D11BFA232ABD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C1716B42-679D-45BB-B301-AB2C0A67D092}
+	EndGlobalSection
+EndGlobal
