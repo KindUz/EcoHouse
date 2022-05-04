@@ -1,7 +1,15 @@
+using EcoHouse.Storage;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+services.AddControllersWithViews();
+
+// Add Database context.
+var connectionString = builder.Configuration.GetConnectionString("DbConnection");
+services.AddDbContext<UniversityContext>(param => param.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
