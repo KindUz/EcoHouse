@@ -29,11 +29,9 @@
         [ForeignKey(nameof(Food_Features_ID))]
         public virtual Food_Features Food_Features { get; set; }
 
+        public int OrdersID { get; set; }
 
-        public int Orders_ID { get; set; }
-
-        [ForeignKey(nameof(Orders_ID))]
-
+        [ForeignKey(nameof(OrdersID))]
         public virtual Orders Orders { get; set; }
 
         [Required]

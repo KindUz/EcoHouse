@@ -9,10 +9,7 @@ namespace EcoHouse.Storage.Entities
     public class Orders
     {
         [Key]
-        public int Orders_ID { get; set; }
-
-        [Required]
-        public int ID { get; set; }
+        public int OrdersID { get; set; }
 
         [Required]
         public int Price { get; set; }
