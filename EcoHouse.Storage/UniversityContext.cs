@@ -19,7 +19,8 @@ namespace EcoHouse.Storage
         public DbSet<Process> processes { get; set; }
 
         public DbSet<Structure> structures { get; set; }
-        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Main_Address> main_Addresses { get; set; }
+        public DbSet<Another_Adresses> Another_Adresses { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Delivery> Deliveries { get; set; }
         public DbSet<Food_Features> Food_Features { get; set; }

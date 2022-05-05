@@ -4,12 +4,12 @@
 
 namespace EcoHouse.Storage.Migrations
 {
-    public partial class Base : Migration
+    public partial class NewBases : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Addresses",
+                name: "Another_Adresses",
                 columns: table => new
                 {
                     Address_ID = table.Column<int>(type: "int", nullable: false)
@@ -21,7 +21,7 @@ namespace EcoHouse.Storage.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Addresses", x => x.Address_ID);
+                    table.PrimaryKey("PK_Another_Adresses", x => x.Address_ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -35,6 +35,22 @@ namespace EcoHouse.Storage.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Food_Features", x => x.Food_FeaturesId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "main_Addresses",
+                columns: table => new
+                {
+                    Address_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Area = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Number_Of_House = table.Column<int>(type: "int", nullable: false),
+                    Number_Of_Apartment = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_main_Addresses", x => x.Address_ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,42 +94,10 @@ namespace EcoHouse.Storage.Migrations
                 {
                     table.PrimaryKey("PK_Deliveries", x => x.DeliveryId);
                     table.ForeignKey(
-                        name: "FK_Deliveries_Addresses_AddressID",
+                        name: "FK_Deliveries_Another_Adresses_AddressID",
                         column: x => x.AddressID,
-                        principalTable: "Addresses",
+                        principalTable: "Another_Adresses",
                         principalColumn: "Address_ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AddressID = table.Column<int>(type: "int", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Food_Features_ID = table.Column<int>(type: "int", nullable: false),
-                    Login = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Users_Addresses_AddressID",
-                        column: x => x.AddressID,
-                        principalTable: "Addresses",
-                        principalColumn: "Address_ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Users_Food_Features_Food_Features_ID",
-                        column: x => x.Food_Features_ID,
-                        principalTable: "Food_Features",
-                        principalColumn: "Food_FeaturesId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -195,6 +179,45 @@ namespace EcoHouse.Storage.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AddressID = table.Column<int>(type: "int", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Food_Features_ID = table.Column<int>(type: "int", nullable: false),
+                    OrdersID = table.Column<int>(type: "int", nullable: false),
+                    Login = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Food_Features_Food_Features_ID",
+                        column: x => x.Food_Features_ID,
+                        principalTable: "Food_Features",
+                        principalColumn: "Food_FeaturesId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Users_main_Addresses_AddressID",
+                        column: x => x.AddressID,
+                        principalTable: "main_Addresses",
+                        principalColumn: "Address_ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Users_Orders_OrdersID",
+                        column: x => x.OrdersID,
+                        principalTable: "Orders",
+                        principalColumn: "OrdersID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_Name_Of_Category",
                 table: "Categories",
@@ -234,6 +257,11 @@ namespace EcoHouse.Storage.Migrations
                 name: "IX_Users_Food_Features_ID",
                 table: "Users",
                 column: "Food_Features_ID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_OrdersID",
+                table: "Users",
+                column: "OrdersID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -242,10 +270,16 @@ namespace EcoHouse.Storage.Migrations
                 name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Food_Features");
+
+            migrationBuilder.DropTable(
+                name: "main_Addresses");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Deliveries");
@@ -254,10 +288,7 @@ namespace EcoHouse.Storage.Migrations
                 name: "dishes");
 
             migrationBuilder.DropTable(
-                name: "Food_Features");
-
-            migrationBuilder.DropTable(
-                name: "Addresses");
+                name: "Another_Adresses");
 
             migrationBuilder.DropTable(
                 name: "processes");

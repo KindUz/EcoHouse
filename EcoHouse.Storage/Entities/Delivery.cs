@@ -19,6 +19,6 @@ namespace EcoHouse.Storage.Entities
 
         [ForeignKey(nameof(AddressID))]
 
-        public virtual Address Address { get; set; }
+        public virtual Another_Adresses Another_Adresses { get; set; }
     }
 }

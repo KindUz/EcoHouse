@@ -16,7 +16,7 @@
 
         [ForeignKey(nameof(AddressID))]
 
-        public virtual Address Address { get; set; }
+        public virtual Main_Address Main_Address { get; set; }
 
         [Required]
         public string Email { get; set; }

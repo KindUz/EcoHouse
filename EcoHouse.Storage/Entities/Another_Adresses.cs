@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EcoHouse.Storage.Entities
 {
-    public class Address
+    public class Another_Adresses
     {
         [Key]
         public int Address_ID { get; set; }
