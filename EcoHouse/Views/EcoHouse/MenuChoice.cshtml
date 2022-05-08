@@ -5,7 +5,13 @@
          <section class="menu start block margin">
             <div class="menu__container container">
                <div class="menu__head head-menu">
-                  <h2 class="head-menu__title title">Наши блюда</h2>
+                  <h2 class="head-menu__title title">Вы выбрали</h2>
+                  <div class="content-choice__item item-choice">
+                     <div class="item-choice__image">
+                        <picture><source srcset="/img/content/curd.webp" type="image/webp"><img src="/img/content/curd.png" alt="image"></picture>
+                     </div>
+                     <div class="item-choice__text">Творог</div>
+                  </div>
                </div>
                <div class="menu__content content-menu">
             @for (var index = 1; index < 8; index++)
@@ -34,7 +40,7 @@
                            </div>
                         </div>
                         <div class="about-menu-item__control control-item">
-                           <a asp-area="" asp-controller="Home" asp-action="Dish" class="control-item__button button-default">Рецепт<span
+                           <a asp-area="" asp-controller="EcoHouse" asp-action="Dish" class="control-item__button button-default">Рецепт<span
                                  class="icon-fork"></span></a>
                            <a href="#" class="control-item__button buy button-default">
                               <picture><source srcset="/img/icons/scooter.webp" type="image/webp"><img src="/img/icons/scooter.png" alt="scooter"></picture>Заказать

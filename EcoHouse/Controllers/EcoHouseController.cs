@@ -4,11 +4,11 @@ using System.Diagnostics;
 
 namespace EcoHouse.Controllers
 {
-    public class HomeController : Controller
+    public class EcoHouseController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<EcoHouseController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public EcoHouseController(ILogger<EcoHouseController> logger)
         {
             _logger = logger;
         }
