@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Доставка";
+}
+
+         <section class="delivery start block">
+            <div class="delivery__container container">
+               <h2 class="delivery__title title">Доставка</h2>
+               <div class="delivery__text">
+                  <p>Также на нашем сайте присутствует доставка готовой еды.</p>
+                  <p>У нас есть наборы еды на целый день.</p>
+               </div>
+               <h2 class="delivery__title title">Наши вкуснейшие EcoНаборы</h2>
+               <div class="delivery__content content-delivery">
+            @for (var index = 1; index < 7; index++)
+            {
+                  <div class="content-delivery__item item-delivery">
+                     <div class="item-delivery__image">
+                        <picture><source srcset="/img/delivery/bag1.webp" type="image/webp"><img src="/img/delivery/bag1.png" alt="bag"></picture>
+                     </div>
+                     <h3 class="item-delivery__title height-function">Набор “Позитивный”</h3>
+                     <div class="about-content-item__kcal">134 ккал/100 г</div>
+                     <div class="about-content-item__menu">
+                        <picture><source srcset="/img/icons/menu.webp" type="image/webp"><img src="/img/icons/menu.png" alt="menu"></picture>
+                        <div class="about-content-item__list">Содержит: овощи, филе курицы и шоколадный
+                           десерт</div>
+                     </div>
+                     <div class="item-delivery__price">690 ₽</div>
+                     <a href="#" class="control-item__button buy button-default">
+                        <picture><source srcset="/img/icons/scooter.webp" type="image/webp"><img src="/img/icons/scooter.png" alt="scooter"></picture>Заказать
+                     </a>
+                  </div>
+            }
+               </div>
+            </div>
+         </section>

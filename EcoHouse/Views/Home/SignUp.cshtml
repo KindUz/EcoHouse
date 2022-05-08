@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Регистрация";
+}
+
+         <section class="enter start block">
+            <div class="enter__container container">
+               <h2 class="enter__title title">Регистрация</h2>
+               <div class="content-enter__form">
+                  <form class="form sign">
+                     <div class="name__block form-block">
+                        <h6 class="form-block__title">Ваше имя</h6>
+                        <input class="name place-form" type="text" name="name" placeholder="Имя">
+                     </div>
+                     <div class="lastname__block form-block">
+                        <h6 class="form-block__title">Ваша фамилия</h6>
+                        <input class="lastname place-form" type="text" name="lastname" placeholder="Фамилия">
+                     </div>
+                     <div class="gender__block form-block form-block-gender">
+                        <h6 class="form-block__title">Ваш пол</h6>
+                        <div class="form-block-gender__block">
+                           <input class="custom-radio" name="gender" type="radio" id="male" value="male" checked>
+                           <label for="male">Мужчина</label>
+                        </div>
+                        <div class="form-block-gender__block">
+                           <input class="custom-radio" name="gender" type="radio" id="female" value="female">
+                           <label for="female">Женщина</label>
+                        </div>
+                     </div>
+                     <div class="email__block form-block">
+                        <h6 class="form-block__title">Ваша почта</h6>
+                        <input class="email place-form" type="text" name="email" placeholder="Email">
+                     </div>
+                     <div class="phone__block form-block">
+                        <h6 class="form-block__title">Ваш телефон</h6>
+                        <input class="number place-form" type="text" name="number" placeholder="+7 (">
+                     </div>
+                     <div class="pass__block form-block">
+                        <h6 class="form-block__title">Ваш пароль</h6>
+                        <input class="pass place-form" type="password" name="pass" placeholder="Пароль">
+                     </div>
+                     <div class="passcheck__block form-block">
+                        <h6 class="form-block__title">Подтвердите пароль</h6>
+                        <input class="pass place-form" type="password" name="pass" placeholder="Пароль">
+                        <div class="pass__error">Пароли не совпадают</div>
+                     </div>
+                     <div class="politic__block form-block">
+                        <input class="custom-checkbox politic-check" type="checkbox" id="politic" name="politic"
+                           value="yes">
+                        <label class="label" for="politic">Я принимаю <a href="#">Политику
+                              конфиденциальности</a></label>
+                     </div>
+                     <input class="input content-enter__sign" type="submit" value="Зарегистрироваться" name="submit">
+                  </form>
+               </div>
+            </div>
+         </section>

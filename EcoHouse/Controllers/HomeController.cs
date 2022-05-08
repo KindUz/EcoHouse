@@ -17,8 +17,43 @@ namespace EcoHouse.Controllers
         {
             return View();
         }
-
-        public IActionResult Privacy()
+        public IActionResult Basket()
+        {
+            return View();
+        }
+        public IActionResult Delivery()
+        {
+            return View();
+        }
+        public IActionResult Dish()
+        {
+            return View();
+        }
+        public IActionResult Favorite()
+        {
+            return View();
+        }
+        public IActionResult Menu()
+        {
+            return View();
+        }
+        public IActionResult MenuChoice()
+        {
+            return View();
+        }
+        public IActionResult Order()
+        {
+            return View();
+        }
+        public IActionResult Personal()
+        {
+            return View();
+        }
+        public IActionResult SignIn()
+        {
+            return View();
+        }
+        public IActionResult SignUp()
         {
             return View();
         }

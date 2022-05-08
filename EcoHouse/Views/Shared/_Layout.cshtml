@@ -3,47 +3,142 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - EcoHouse</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/EcoHouse.styles.css" asp-append-version="true" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/style.min.css" asp-append-version="true" />
+    <link rel="icon" href="~/img/logo/favicon.png" type="image/png">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EcoHouse</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+   <div class="wrapper">
+    <header id="header" class="header lock-padding">
+   <div class="header__container container">
+      <div class="header__logo hover"><a asp-area="" asp-controller="Home" asp-action="Index">
+         <picture><source srcset="~/img/logo/favicon.webp" type="image/webp"><img src="~/img/logo/favicon.png" alt="logo"></picture><span>EcoHouse</span></a></div>
+      <nav class="header__menu menu-header">
+         <div class="menu-header__phone phone-menu">
+            <a href="tel:+88005553535" class="phone-menu__call icon-phone-transparent icon">8 (800) 555 35-35</a>
+            <a href="#popup" class="popup-link phone-menu__call-me button-default call">Позвоните мне</a>
+         </div>
+         <div class="menu-header__content">
+            <div class="menu-header__button">
+               <a asp-area="" asp-controller="Home" asp-action="Menu" class="menu-header__dish button-default">Блюда<span
+                     class="icon-fork"></span></a>
+               <a asp-area="" asp-controller="Home" asp-action="Delivery" class="menu-header__delivery button-default">Доставка<span
+                     class="icon-spoon"></span></a>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+            <div class="select" id="city">
+               <button type="button" class="select__toggle icon-arrow-down icon" name="city" value=""
+                  data-select="toggle" data-index="-1">Москва</button>
+               <div class="select__dropdown">
+                  <ul class="select__options">
+                     <li class="select__option" data-select="option" data-value="city-0" data-index="0">
+                        МОСКВА</li>
+                     <li class="select__option" data-select="option" data-value="city-1" data-index="1">
+                        САНКТ-ПЕТЕРБУРГ</li>
+                     <li class="select__option" data-select="option" data-value="city-2" data-index="2">
+                        НИЖНИЙ НОВГОРОД</li>
+                     <li class="select__option" data-select="option" data-value="city-3" data-index="3">
+                        КАЗАНЬ</li>
+                     <li class="select__option" data-select="option" data-value="city-4" data-index="4">
+                        ТУЛА</li>
+                     <li class="select__option" data-select="option" data-value="city-5" data-index="5">
+                        КРАСНОЯРСК</li>
+                     <li class="select__option" data-select="option" data-value="city-6" data-index="6">
+                        ВЛАДИВОСТОК</li>
+                  </ul>
+               </div>
+            </div>
+            <div class="menu-header__small-button">
+               <a href="#" class="menu-header__search search-open icon-search icon"><span>Поиск</span></a>
+               <a asp-area="" asp-controller="Home" asp-action="Basket" class="menu-header__bag icon-bag icon"><span
+                     class="bag-count">4</span><span>Корзина</span></a>
+               <a asp-area="" asp-controller="Home" asp-action="SignIn" class="menu-header__user icon-user icon"><span>Личный кабинет</span></a>
+            </div>
+         </div>
+      </nav>
+      <div class="header__burger"><span class="icon-fork"></span><span class="icon-spoon"></span></div>
+      <div class="header__black"></div>
+   </div>
+   <div id="popup" class="popup">
+      <div class="popup__body">
+         <div class="popup__content content-popup">
+            <a href="#" class="popup__close close-popup icon-close"></a>
+            <h2 class="content-popup__title title">Введите свой номер</h2>
+            <div class="content-popup__form">
+               <form class="form call">
+                  <input class="number place-form" type="text" name="number" placeholder="+7 (">
+                  <input class="input" type="submit" value="Заказать звонок" name="submit">
+               </form>
+               <div class="content-popup__well title"><span>Через пару минут вы получите звонок!</span></div>
+            </div>
+         </div>
+      </div>
+   </div>
+</header>
+      <main class="main">
+          <section class="search">
+            <div class="search__container container">
+               <div class="search__head">
+                  <h2 class="search__title title">Поиск</h2>
+                  <button class="search-close icon-close search-open"></button>
+               </div>
+               <form class="search__form form">
+                  <input class="search-input" type="text" name="search" placeholder="Введите название блюда">
+                  <ul class="search-input__list">
+            @for (var index = 1; index < 2; index++) 
+            {
+                     <li><a>Нет ничего</a></li>
+            }
+                  </ul>
+               </form>
+            </div>
+         </section>
+    @RenderBody()
+            <div class="sale__block sale-change">Изменено</div>
+            <div class="sale__block sale-add">Добавлено</div>
+            <div class="sale__block sale-remove">Удалено</div>
+      </main>
+    <footer class="footer">
+   <div class="footer__container container">
+      <div class="footer__block-main">
+         <div class="footer__about about-footer">
+            <div class="about-footer__image"><picture><source srcset="~/img/logo/logo.webp" type="image/webp"><img src="~/img/logo/logo.png" alt="logo"></picture></div>
+            <a href="tel:+88005553535" class="about-footer__phone icon-phone footer-text">8 (800) 555 35-35</a>
+            <div class="about-footer__text footer-text">Внешний вид блюд может отличаться от фотографий на сайте</div>
+         </div>
+         <div class="footer__social social-footer">
+            <h6 class="social-footer__title footer-text">Наши соцсети</h6>
+            <div class="social-footer__content content-footer">
+               <a href="#" class="content-footer__link"><picture><source srcset="~/img/icons/telegram.webp" type="image/webp"><img src="~/img/icons/telegram.png" alt="telegram"></picture></a>
+               <a href="#" class="content-footer__link"><picture><source srcset="~/img/icons/vk.webp" type="image/webp"><img src="~/img/icons/vk.png" alt="vk"></picture></a>
+            </div>
+         </div>
+         <div class="footer__pay pay-footer">
+            <h6 class="pay-footer__title footer-text">Мы принимаем оплату</h6>
+            <div class="pay-footer__content content-footer">
+               <div class="content-footer__image"><picture><source srcset="~/img/pay/visa.webp" type="image/webp"><img src="~/img/pay/visa.png" alt="visa"></picture></div>
+               <div class="content-footer__image"><picture><source srcset="~/img/pay/mastercard.webp" type="image/webp"><img src="~/img/pay/mastercard.png" alt="mastercard"></picture></div>
+               <div class="content-footer__image"><picture><source srcset="~/img/pay/world.webp" type="image/webp"><img src="~/img/pay/world.png" alt="world"></picture></div>
+               <div class="content-footer__image"><picture><source srcset="~/img/pay/union.webp" type="image/webp"><img src="~/img/pay/union.png" alt="union"></picture></div>
+            </div>
+         </div>
+         <div class="footer__form">
+            <form class="form sign-news">
+               <input class="email place-form" type="text" name="email" placeholder="Email">
+               <input class="input" type="submit" value="Подписаться" name="submit">
+               <input class="custom-checkbox politic-check" type="checkbox" id="politic-footer" name="politic"
+                  value="yes">
+               <label class="label" for="politic-footer">Я принимаю <a href="#">Политику конфиденциальности</a></label>
+            </form>
+         </div>
+      </div>
+      <div class="footer__block-copy footer-text">© 2022 EcoHouse. Официальный сайт.</div>
+   </div>
+</footer>
+   </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - EcoHouse - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/app.min.js" asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

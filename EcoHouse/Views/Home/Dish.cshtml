@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "Салат с брокколи и цветной капусты";
+}
+
+         <section class="dish start block">
+            <div class="dish__container container">
+               <h2 class="dish__title title">Салат с брокколи и цветной капусты</h2>
+               <div class="dish__content content-dish">
+                  <div class="content-dish__image">
+                     <picture><source srcset="/img/dish/food3.webp" type="image/webp"><img src="/img/dish/food3.png" alt="food"></picture>
+                  </div>
+                  <div class="content-dish__control control-dish">
+                     <div class="control-dish__price">150 ₽</div>
+                     <a href="#" class="control-item__button buy button-default">
+                        <picture><source srcset="/img/icons/scooter.webp" type="image/webp"><img src="/img/icons/scooter.png" alt="scooter"></picture>Заказать
+                        <span class="icon-spoon"></span>
+                     </a>
+                  </div>
+                  <div class="content-dish__about about-dish">
+                     <div class="about-dish__desc">Полезный и вкусный салат из брокколи и цветной капусты, сваренных на
+                        пару, разнообразит завтрак и отлично дополнит обед или ужин.</div>
+                     <div class="about-dish__info info-dish">
+                        <div class="info-dish__content content-info-dish">
+                           <div class="about-content-item__kcal">48 ккал/100 г</div>
+                           <div class="content-info-dish__peculiarities"><span class="no"></span>Подходит для любого типа питания</div>
+                        </div>
+                     </div>
+                     <div class="about-content-item__menu">
+                        <picture><source srcset="/img/icons/menu.webp" type="image/webp"><img src="/img/icons/menu.png" alt="menu"></picture>
+                        <ul class="about-content-item__list">
+            @for (var index = 1; index < 5; index++) {
+
+                           <li>Брокколи - 150 грамм</li>
+            }
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+               <div class="dish__process process-dish">
+                  <h3 class="small-title">Рецепт:</h3>
+                  <ol type="1" class="process-dish__list">
+            @for (var index = 1; index < 9; index++) 
+            {
+                     <li>Брокколи и цветную капусту помыть.</li>
+            }
+                  </ol>
+               </div>
+               <div class="dish__bju bju-dish">
+                  <h3 class="small-title">Пищевая ценность:</h3>
+                  <div class="bju-dish__b">Б: 3.4 грамма</div>
+                  <div class="bju-dish__j">Ж: 5 грамм</div>
+                  <div class="bju-dish__u">У: 24.2 грамм</div>
+                  <div class="bju-dish__k">Калорийность: 155 кКал</div>
+               </div>
+               <div class="dish__reviews reviews-dish">
+                  <div class="sale__head head-sale">
+                     <h3 class="small-title">Отзывы:</h3>
+                     <div class="head-sale__button">
+                        <button class="head-sale__button-arrow slider-left icon-arrow-left"></button>
+                        <button class="head-sale__button-arrow slider-right icon-arrow-right"></button>
+                     </div>
+                  </div>
+                  <div class="reviews-dish__content slider content-dish-reviews">
+            @for (var index = 1; index < 19; index++) 
+            {
+                     <div class="content-dish-reviews__item item-reviews">
+                        <div class="item-reviews__image">
+                           <picture><source srcset="/img/user/user1.webp" type="image/webp"><img src="/img/user/user1.jpg" alt="user"></picture>
+                        </div>
+                        <div class="item-reviews__name">Дуэйн “Скала” Джонсон</div>
+                        <div class="item-reviews__text">Салат очень вкусный, всем рекомендую. Съел 2 порции и банки
+                           стали огромными!!! Пойду угощу им свою семью. Семья - это главное.</div>
+                     </div>
+            }
+                  </div>
+               </div>
+            </div>
+         </section>

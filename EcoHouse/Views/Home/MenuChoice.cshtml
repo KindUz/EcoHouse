@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Меню";
+}
+
+         <section class="menu start block margin">
+            <div class="menu__container container">
+               <div class="menu__head head-menu">
+                  <h2 class="head-menu__title title">Вы выбрали</h2>
+                  <div class="content-choice__item item-choice">
+                     <div class="item-choice__image">
+                        <picture><source srcset="/img/content/curd.webp" type="image/webp"><img src="/img/content/curd.png" alt="image"></picture>
+                     </div>
+                     <div class="item-choice__text">Творог</div>
+                  </div>
+               </div>
+               <div class="menu__content content-menu">
+            @for (var index = 1; index < 8; index++)
+            {
+                  <div class="content-menu__item item-menu">
+                     <div class="item-menu__image">
+                        <picture><source srcset="/img/dish/food3.webp" type="image/webp"><img src="/img/dish/food3.png" alt="food"></picture>
+                     </div>
+                     <div class="item-menu__about about-menu-item">
+                        <h3 class="about-menu-item__title">Салат с брокколи и цветной капусты</h3>
+                        <div class="about-menu-item__content content-item">
+                           <div class="content-item__desc">Полезный и вкусный салат из брокколи и цветной капусты,
+                              сваренных на пару, разнообразит завтрак и отлично дополнит обед или ужин.</div>
+                           <div class="content-item__about about-content-item">
+                              <h3 class="about-content-item__title">О блюде:</h3>
+                              <div class="about-content-item__kcal">48 ккал/100 г</div>
+                              <div class="about-content-item__menu">
+                                 <picture><source srcset="/img/icons/menu.webp" type="image/webp"><img src="/img/icons/menu.png" alt="menu"></picture>
+                                 <ul class="about-content-item__list">
+                                        @for (var product = 1; product < 8; product++)
+                                        {
+                                        <li>Брокколи</li>
+                                        }
+                                 </ul>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="about-menu-item__control control-item">
+                           <a asp-area="" asp-controller="Home" asp-action="Dish" class="control-item__button button-default">Рецепт<span
+                                 class="icon-fork"></span></a>
+                           <a href="#" class="control-item__button buy button-default">
+                              <picture><source srcset="/img/icons/scooter.webp" type="image/webp"><img src="/img/icons/scooter.png" alt="scooter"></picture>Заказать
+                              <span class="icon-spoon"></span>
+                           </a>
+                        </div>
+                     </div>
+                  </div>
+            }
+               </div>
+            </div>
+         </section>

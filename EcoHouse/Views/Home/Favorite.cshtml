@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Продукт";
+}
+
+         <section class="favorite start block margin">
+            <div class="favorite__container container">
+               <h2 class="favorite__title title">Выберите любимый продукт, а мы подберём блюдо</h2>
+               <div class="favorite__search">
+                  <form class="search__form form">
+                     <input class="search-input" type="text" name="search" placeholder="Введите продукт">
+                     <ul class="search-input__list">
+            @for (var index = 1; index < 9; index++) 
+            {
+                        <li><a asp-area="" asp-controller="Home" asp-action="Dish">Брокколи</a></li>
+            }
+                     </ul>
+                  </form>
+               </div>
+               <div class="favorite__content content-choice">
+            @for (var index = 1; index < 29; index++) 
+            {
+                  <a asp-area="" asp-controller="Home" asp-action="Dish" class="content-choice__item item-choice">
+                     <div class="item-choice__image">
+                        <picture><source srcset="/img/content/broccoli.webp" type="image/webp"><img src="/img/content/broccoli.png" alt="image"></picture>
+                     </div>
+                     <div class="item-choice__text">Брокколи</div>
+                  </a>
+            }
+               </div>
+            </div>
+         </section>
