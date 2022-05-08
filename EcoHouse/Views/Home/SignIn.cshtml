@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Вход";
+}
+
+         <section class="enter start block">
+            <div class="enter__container container">
+               <h2 class="enter__title title">Вход в личный кабинет</h2>
+               <div class="enter__content content-enter">
+                  <h3 class="content-enter__title">Введите номер телефона и пароль</h3>
+                  <div class="content-enter__form">
+                     <form class="form enter-form">
+                        <input class="number place-form" type="text" name="number" placeholder="+7 (">
+                        <div class="form__empty number-error">Неправильный номер</div>
+                        <input class="pass place-form" type="text" name="pass" placeholder="Пароль">
+                        <div class="form__empty pass-error">Неправильный пароль</div>
+                        <input class="input" type="submit" value="Войти" name="submit">
+                     </form>
+                  </div>
+                  <a asp-area="" asp-controller="Home" asp-action="SignUp" class="content-enter__sign">Зарегистрироваться</a>
+               </div>
+            </div>
+         </section>

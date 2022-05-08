@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcoHouse.Storage.Migrations
 {
     [DbContext(typeof(UniversityContext))]
-    [Migration("20220505193046_NewBases")]
-    partial class NewBases
+    [Migration("20220508175528_NewBase")]
+    partial class NewBase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -96,6 +96,10 @@ namespace EcoHouse.Storage.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Link")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

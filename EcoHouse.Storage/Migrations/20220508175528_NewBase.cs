@@ -4,7 +4,7 @@
 
 namespace EcoHouse.Storage.Migrations
 {
-    public partial class NewBases : Migration
+    public partial class NewBase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -112,7 +112,8 @@ namespace EcoHouse.Storage.Migrations
                     Price = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name_Of_Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Process_ = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    Process_ = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Link = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

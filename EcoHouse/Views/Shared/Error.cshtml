@@ -1,25 +1,19 @@
 ﻿@model ErrorViewModel
 @{
-    ViewData["Title"] = "Error";
+    ViewData["Title"] = "Ошибка";
 }
-
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
-
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
-
-<h3>Development Mode</h3>
-<p>
-    Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
-</p>
-<p>
-    <strong>The Development environment shouldn't be enabled for deployed applications.</strong>
-    It can result in displaying sensitive information from exceptions to end users.
-    For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
-    and restarting the app.
-</p>
+<section class="error start block">
+            <div class="error__container container">
+               <div class="error__text text-error">
+                  <div class="text-error__symbol">4</div>
+                  <div class="text-error__image">
+                     <picture><source srcset="/img/empty-plate.webp" type="image/webp"><img src="/img/empty-plate.png" alt="empty"></picture>
+                  </div>
+                  <div class="text-error__symbol">4</div>
+               </div>
+               <div class="text-error__empty">Такой страницы нет</div>
+               <div class="text-error__link">
+                  <a class="icon-home" asp-area="" asp-controller="Home" asp-action="Index">На главную</a>
+               </div>
+            </div>
+         </section>

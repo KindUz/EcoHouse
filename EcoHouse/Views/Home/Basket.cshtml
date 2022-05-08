@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Корзина";
+}
+
+         <section class="basket start block">
+            <div class="basket__container container">
+               <h2 class="basket__title title">Корзина</h2>
+               <div class="basket__content content-basket">
+                  <div class="content-basket__table table-basket">
+                     <div class="table-basket__head head-table">
+                        <div class="head-table__product">Товар</div>
+                        <div class="head-table__count">Количество</div>
+                        <div class="head-table__price">Цена</div>
+                        <div class="head-table__info">Информация</div>
+                     </div>
+                @for (var index = 1; index < 6; index++)
+                {
+                     <div class="table-basket__item item-table">
+                        <div class="item-table__image">
+                           <picture><source srcset="/img/dish/food3.webp" type="image/webp"><img src="/img/dish/food3.png" alt="food"></picture>
+                        </div>
+                        <div class="item-table__name">Салат с брокколи и цветной капусты</div>
+                        <div class="item-table__count count-item control-count">
+                           <button class="count-item__button sub">−</button>
+                           <div class="count-item__value count">1</div>
+                           <button class="count-item__button inc">+</button>
+                        </div>
+                        <div class="item-table__price">250 ₽</div>
+                        <div class="item-table__control control-item">
+                           <button class="control-item__remove remove-button">Удалить</button>
+                        </div>
+                     </div>
+                }
+                  </div>
+                  <div class="content-basket__registration registration-basket">
+                     <div class="registration-basket__head">Оформление</div>
+                     <div class="registration-basket__content registration-content-basket">
+                        <div class="registration-content-basket__all all-registration-content">
+                           <div class="all-registration-content__name">Всего <span class="count">(3)</span></div>
+                           <div class="all-registration-content__count registration-price">1069 ₽</div>
+                        </div>
+                        <div class="all-registration-content__sale all-registration-content">
+                           <div class="all-registration-content__name registration-sale">Скидка <span
+                                 class="sale">-0%</span></div>
+                           <div class="all-registration-content__count">0 ₽</div>
+                        </div>
+                        <div class="registration-content-basket__promo promo-basket">
+                           <form class="form promo-form">
+                              <div class="promo-form__place">
+                                 <input class="promo" type="text" name="promo" placeholder="Промокод">
+                                 <button class="input-yes icon-yes" type="submit" value="" name="submit"></button>
+                              </div>
+                              <div class="form__error-promo">Промокод неправильный</div>
+                              <div class="form__error-promo-well">Промокод применен</div>
+                           </form>
+                        </div>
+                        <div class="all-registration-content__sale all-registration-content">
+                           <div class="all-registration-content__name">Стоимость</div>
+                           <div class="all-registration-content__count all-price">1069 ₽</div>
+                        </div>
+                        <a asp-area="" asp-controller="Home" asp-action="Order" class="content-enter__sign">Оформить</a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>

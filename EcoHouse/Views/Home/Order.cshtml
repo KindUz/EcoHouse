@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "Оформление";
+}
+
+         <section class="buy start block">
+            <div class="buy__container container">
+               <h2 class="buy__title title">Оформление заказа</h2>
+               <div class="buy__content content-buy">
+                  <div class="content-buy__price all-registration-content">
+                     <div class="all-registration-content__name">Стоимость</div>
+                     <div class="all-registration-content__count all-price">1069 ₽</div>
+                  </div>
+                  <div class="content-buy__block block-buy">
+                     <form class="form registration address">
+                        <div class="block-buy__head head-buy">
+                           <h4 class="head-buy__title">Адрес доставки</h4>
+                           <a href="#popup-address" class="head-buy__choice popup-link">Выбрать</a>
+                        </div>
+                        <div class="content-buy__block-form form-block">
+                           <h6 class="form-block__title">Город</h6>
+                           <input class="city place-form form-address" type="text" name="city" placeholder="Город">
+                        </div>
+                        <div class="content-buy__block-form form-block">
+                           <h6 class="form-block__title">Улица</h6>
+                           <input class="address place-form form-address" type="text" name="address" placeholder="Улица">
+                        </div>
+                        <div class="content-buy__block-form form-block">
+                           <h6 class="form-block__title">Дом</h6>
+                           <input class="home place-form form-address" type="text" name="home" placeholder="Дом">
+                        </div>
+                        <div class="content-buy__block-form form-block">
+                           <h6 class="form-block__title">Квартира/Офис</h6>
+                           <input class="flat place-form form-address" type="text" name="flat" placeholder="Квартира/Офис">
+                        </div>
+                        <h4 class="head-buy__title choice">Способ оплаты</h4>
+                        <div class="block-buy__choice choice-block-buy">
+                           <div class="choice-block-buy__item">
+                              <input class="custom-buy" name="buy" type="radio" id="card" value="card" checked>
+                              <label for="card">Картой онлайн</label>
+                           </div>
+                           <div class="choice-block-buy__item">
+                              <input class="custom-buy" name="buy" type="radio" id="cash" value="cash">
+                              <label for="cash">Наличными курьеру</label>
+                           </div>
+                        </div>
+                        <div class="block-buy__card card-buy active">
+                           <div class="content-buy__block-form form-block number-card">
+                              <h6 class="form-block__title">Номер карты</h6>
+                              <input class="card place-form card-info" type="text" name="card" placeholder="9999 9999 9999 9999">
+                           </div>
+                           <div class="content-buy__block-form small form-block">
+                              <h6 class="form-block__title">Дата</h6>
+                              <input class="date place-form card-info" type="text" name="date" placeholder="99/99">
+                           </div>
+                           <div class="content-buy__block-form small form-block">
+                              <h6 class="form-block__title">CVV-код</h6>
+                              <input class="cvv place-form card-info" type="text" name="cvv" placeholder="999">
+                           </div>
+                        </div>
+                        <input class="input" type="submit" value="Заказать" name="submit">
+                     </form>
+                  </div>
+               </div>
+            </div>
+            <div id="popup-address" class="popup">
+               <div class="popup__body">
+                  <div class="popup__content content-popup">
+                     <a href="#" class="popup__close close-popup icon-close"></a>
+                     <h2 class="content-form-popup__title">Мои адреса</h2>
+                     <ul class="content-popup__list">
+            @for (var index = 1; index < 4; index++) {
+                        <li class="address-link fill">г. Москва, ул. Арбат, дом @index, кв. @index@index</li>
+            }
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </section>

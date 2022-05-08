@@ -29,5 +29,8 @@ namespace EcoHouse.Storage.Entities
 
         [ForeignKey(nameof(Process_))]
         public virtual Process Process { get; set; }
+
+        [Required]
+        public string Link { get; set; }
     }
 }

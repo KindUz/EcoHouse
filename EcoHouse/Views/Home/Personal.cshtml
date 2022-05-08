@@ -1,0 +1,196 @@
+﻿@{
+    ViewData["Title"] = "Личный кабинет";
+}
+
+         <section class="personal start block">
+            <div class="personal__container container">
+               <div class="personal__content content-personal">
+                  <div class="content-personal__about about-personal">
+                     <div class="about-personal__image">
+                        <picture><img src="/img/user/user1.jpg" alt="user"></picture>
+                     </div>
+                     <div class="about-personal__update">
+                        <a href="#popup-form-image" class="popup-link icon-update">Обновить фотографию</a>
+                     </div>
+                     <div class="about-personal__name">Дуэйн “Скала” Джонсон</div>
+                  </div>
+                  <div class="content-personal__info info-personal">
+                     <div class="info-personal__name">Ваша почта</div>
+                     <div class="info-personal__content place-email">yaskala@hollywood.com</div>
+                     <div class="info-personal__button"><a class="popup-link" href="#popup-form-email">Изменить</a>
+                     </div>
+                     <div class="info-personal__name">Ваш телефон</div>
+                     <div class="info-personal__content place-number">+7 (999) 563 85-48</div>
+                     <div class="info-personal__button"><a class="popup-link" href="#popup-form-phone">Изменить</a>
+                     </div>
+                     <div class="info-personal__name">Ваш пароль</div>
+                     <div class="info-personal__content place-pass">••••••••••••••••••••••</div>
+                     <div class="info-personal__button"><a class="popup-link" href="#popup-form-pass">Изменить</a></div>
+                  </div>
+                  <div class="content-personal__peculiarities peculiarities-personal">
+                     <h3 class="peculiarities-personal__title">Особенности питания</h3>
+                     <div class="select" id="food">
+                        <button type="button" class="select__toggle icon-arrow-down icon" name="food" value=""
+                           data-select="toggle" data-index="-1">Выберите</button>
+                        <div class="select__dropdown">
+                           <ul class="select__options">
+                              <li class="select__option" data-select="option" data-value="food-0" data-index="0">
+                                 Веган</li>
+                              <li class="select__option" data-select="option" data-value="food-1" data-index="1">
+                                 Мусульманин</li>
+                              <li class="select__option" data-select="option" data-value="food-2" data-index="2">
+                                 Ещё что-то</li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+                  <h3 class="peculiarities-personal__title">Мои адреса</h3>
+                  <div class="content-personal__info info-personal address">
+                     <div class="info-personal__content">г. Москва, ул. Арбат, дом 1, кв. 15</div>
+                     <div class="info-personal__button"><a class="popup-link remove-popup"
+                           href="#popup-form-change">Изменить</a><button
+                           class="control-item__remove remove-button">Удалить</button></div>
+                     <div class="info-personal__content">г. Москва, ул. Арбат, дом 2, кв. 228</div>
+                     <div class="info-personal__button"><a class="popup-link remove-popup"
+                           href="#popup-form-change">Изменить</a><button
+                           class="control-item__remove remove-button">Удалить</button></div>
+                  </div>
+                  <a href="#popup-form-add" class="info-personal__add icon-more popup-link">Добавить адрес</a>
+               </div>
+               <div class="personal__exit">
+                  <a asp-area="" asp-controller="Home" asp-action="Index" class="exit icon-exit"><span>Выйти</span></a>
+               </div>
+            </div>
+            <div id="popup-form-image" class="popup">
+               <div class="popup__body">
+                  <div class="popup__content content-popup">
+                     <a href="#" class="popup__close close-popup icon-close"></a>
+                     <h2 class="content-form-popup__title">Изменение фотографии</h2>
+                     <div class="content-popup__form">
+                        <form class="form personal download">
+                           <div class="personal__image"></div>
+                           <div class="input__wrapper">
+                              <input name="file" type="file" name="file" id="input__file" class="input input__file"
+                                 accept="image/*">
+                              <label for="input__file" class="input__file-button">
+                                 <span class="input__file-button-text">Загрузить</span>
+                              </label>
+                           </div>
+                           <input class="input" type="submit" value="Сохранить" name="submit">
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div id="popup-form-email" class="popup">
+               <div class="popup__body">
+                  <div class="popup__content content-popup">
+                     <a href="#" class="popup__close close-popup icon-close"></a>
+                     <h2 class="content-form-popup__title">Новая почта</h2>
+                     <div class="content-popup__form">
+                        <form class="form personal">
+                           <input class="email place-form" type="text" name="email" placeholder="Email">
+                           <input class="input" type="submit" value="Сохранить" name="submit">
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div id="popup-form-phone" class="popup">
+               <div class="popup__body">
+                  <div class="popup__content content-popup">
+                     <a href="#" class="popup__close close-popup icon-close"></a>
+                     <h2 class="content-form-popup__title">Новый телефон</h2>
+                     <div class="content-popup__form">
+                        <form class="form personal">
+                           <input class="number place-form" type="text" name="number" placeholder="+7 (">
+                           <input class="input" type="submit" value="Сохранить" name="submit">
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div id="popup-form-pass" class="popup">
+               <div class="popup__body">
+                  <div class="popup__content content-popup">
+                     <a href="#" class="popup__close close-popup icon-close"></a>
+                     <h2 class="content-form-popup__title">Старый пароль</h2>
+                     <div class="content-popup__form">
+                        <form class="form personal">
+                           <div class="email__block form-block">
+                              <input class="pass place-form" type="text" name="pass" placeholder="Пароль">
+                              <div class="form__pass">Неверный пароль</div>
+                           </div>
+                           <div class="email__block form-block">
+                              <h2 class="content-form-popup__title">Новый пароль</h2>
+                              <input class="pass place-form" type="text" name="pass" placeholder="Пароль">
+                           </div>
+                           <input class="input" type="submit" value="Сохранить" name="submit">
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div id="popup-form-add" class="popup">
+               <div class="popup__body">
+                  <div class="popup__content content-popup">
+                     <a href="#" class="popup__close close-popup icon-close"></a>
+                     <h2 class="content-form-popup__title">Добавление адреса</h2>
+                     <div class="content-popup__form">
+                        <form class="form personal address add">
+                           <div class="city__block form-block">
+                              <h6 class="form-block__title">Город</h6>
+                              <input class="city place-form form-address" type="text" name="city" placeholder="Город">
+                           </div>
+                           <div class="address__block form-block">
+                              <h6 class="form-block__title">Улица</h6>
+                              <input class="address place-form form-address" type="text" name="address"
+                                 placeholder="Улица">
+                           </div>
+                           <div class="home__block form-block">
+                              <h6 class="form-block__title">Дом</h6>
+                              <input class="home place-form form-address" type="text" name="home" placeholder="Дом">
+                           </div>
+                           <div class="flat__block form-block">
+                              <h6 class="form-block__title">Квартира/Офис</h6>
+                              <input class="flat place-form form-address" type="text" name="flat"
+                                 placeholder="Квартира/Офис">
+                           </div>
+                           <input class="input" type="submit" value="Сохранить" name="submit">
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div id="popup-form-change" class="popup">
+               <div class="popup__body">
+                  <div class="popup__content content-popup">
+                     <a href="#" class="popup__close close-popup icon-close"></a>
+                     <h2 class="content-form-popup__title">Изменение адреса</h2>
+                     <div class="content-popup__form">
+                        <form class="form personal address change">
+                           <div class="city__block form-block">
+                              <h6 class="form-block__title">Город</h6>
+                              <input class="city place-form form-address" type="text" name="city" placeholder="Город">
+                           </div>
+                           <div class="address__block form-block">
+                              <h6 class="form-block__title">Улица</h6>
+                              <input class="address place-form form-address" type="text" name="address"
+                                 placeholder="Улица">
+                           </div>
+                           <div class="home__block form-block">
+                              <h6 class="form-block__title">Дом</h6>
+                              <input class="home place-form form-address" type="text" name="home" placeholder="Дом">
+                           </div>
+                           <div class="flat__block form-block">
+                              <h6 class="form-block__title">Квартира/Офис</h6>
+                              <input class="flat place-form form-address" type="text" name="flat"
+                                 placeholder="Квартира/Офис">
+                           </div>
+                           <input class="input" type="submit" value="Сохранить" name="submit">
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
