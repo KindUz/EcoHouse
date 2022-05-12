@@ -1,6 +1,7 @@
 using EcoHouse.Controllers;
 using EcoHouse.Logic.Another_Address;
 using EcoHouse.Logic.Categories;
+using EcoHouse.Logic.Orders;
 using EcoHouse.Logic.Structures;
 using EcoHouse.Logic.Users;
 using EcoHouse.Storage;
@@ -13,6 +14,8 @@ var services = builder.Services;
 builder.Services.AddScoped<ICategoryManager, CategoryManager>();
 builder.Services.AddScoped<IAnother_AdressManager, Another_AdressManager>();
 builder.Services.AddScoped<IStructureManager, StructureManager>();
+builder.Services.AddScoped<IOrderManager, OrderManager>();
+
 
 
 services.AddControllersWithViews();
@@ -42,6 +45,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Another_Address}/{action=Main}/{id?}");
 
 app.Run();

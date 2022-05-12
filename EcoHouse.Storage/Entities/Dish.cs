@@ -1,10 +1,9 @@
-﻿
-namespace EcoHouse.Storage.Entities
+﻿namespace EcoHouse.Storage.Entities
 {
     public class Dish
     {
         [Key]
-        public string Dish_ID { get; set; }
+        public int Dish_ID { get; set; }
 
         public string Name { get; set; }
 
@@ -28,10 +27,7 @@ namespace EcoHouse.Storage.Entities
 
         [Required]
 
-        public string Process_ { get; set; }
-
-        [ForeignKey(nameof(Process_))]
-        public virtual Process Process { get; set; }
+        public string Recipe { get; set; }
 
         [Required]
         public string Link { get; set; }

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcoHouse.Storage.Migrations
 {
     [DbContext(typeof(UniversityContext))]
-    [Migration("20220512162605_Base")]
-    partial class Base
+    [Migration("20220512221606_NewBase")]
+    partial class NewBase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -90,8 +90,11 @@ namespace EcoHouse.Storage.Migrations
 
             modelBuilder.Entity("EcoHouse.Storage.Entities.Dish", b =>
                 {
-                    b.Property<string>("Dish_ID")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Dish_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Dish_ID"), 1L, 1);
 
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
@@ -114,9 +117,9 @@ namespace EcoHouse.Storage.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<string>("Process_")
+                    b.Property<string>("Recipe")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Structure_")
                         .HasColumnType("int");
@@ -124,8 +127,6 @@ namespace EcoHouse.Storage.Migrations
                     b.HasKey("Dish_ID");
 
                     b.HasIndex("CategoryID");
-
-                    b.HasIndex("Process_");
 
                     b.HasIndex("Structure_");
 
@@ -176,7 +177,7 @@ namespace EcoHouse.Storage.Migrations
                     b.ToTable("main_Addresses");
                 });
 
-            modelBuilder.Entity("EcoHouse.Storage.Entities.Orders", b =>
+            modelBuilder.Entity("EcoHouse.Storage.Entities.Order", b =>
                 {
                     b.Property<int>("OrdersID")
                         .ValueGeneratedOnAdd()
@@ -194,9 +195,8 @@ namespace EcoHouse.Storage.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name_Of_Dish")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("DishID")
+                        .HasColumnType("int");
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
@@ -205,23 +205,9 @@ namespace EcoHouse.Storage.Migrations
 
                     b.HasIndex("Delivery_ID");
 
-                    b.HasIndex("Name_Of_Dish");
+                    b.HasIndex("DishID");
 
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("EcoHouse.Storage.Entities.Process", b =>
-                {
-                    b.Property<string>("Process_ID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Recipe")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Process_ID");
-
-                    b.ToTable("processes");
                 });
 
             modelBuilder.Entity("EcoHouse.Storage.Entities.Structure", b =>
@@ -324,12 +310,6 @@ namespace EcoHouse.Storage.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EcoHouse.Storage.Entities.Process", "Process")
-                        .WithMany()
-                        .HasForeignKey("Process_")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("EcoHouse.Storage.Entities.Structure", "Structure")
                         .WithMany()
                         .HasForeignKey("Structure_")
@@ -338,12 +318,10 @@ namespace EcoHouse.Storage.Migrations
 
                     b.Navigation("Category");
 
-                    b.Navigation("Process");
-
                     b.Navigation("Structure");
                 });
 
-            modelBuilder.Entity("EcoHouse.Storage.Entities.Orders", b =>
+            modelBuilder.Entity("EcoHouse.Storage.Entities.Order", b =>
                 {
                     b.HasOne("EcoHouse.Storage.Entities.Delivery", "Delivery")
                         .WithMany()
@@ -353,7 +331,7 @@ namespace EcoHouse.Storage.Migrations
 
                     b.HasOne("EcoHouse.Storage.Entities.Dish", "Dish")
                         .WithMany()
-                        .HasForeignKey("Name_Of_Dish")
+                        .HasForeignKey("DishID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -376,7 +354,7 @@ namespace EcoHouse.Storage.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EcoHouse.Storage.Entities.Orders", "Orders")
+                    b.HasOne("EcoHouse.Storage.Entities.Order", "Order")
                         .WithMany()
                         .HasForeignKey("OrdersID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -386,7 +364,7 @@ namespace EcoHouse.Storage.Migrations
 
                     b.Navigation("Main_Address");
 
-                    b.Navigation("Orders");
+                    b.Navigation("Order");
                 });
 #pragma warning restore 612, 618
         }

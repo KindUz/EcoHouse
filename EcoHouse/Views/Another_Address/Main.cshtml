@@ -1,0 +1,46 @@
+﻿@model IList<EcoHouse.Storage.Entities.Another_Adresses>
+
+    <h1>Адреса:</h1>
+    <table>
+        <tr>
+            <th>
+                Идентификатор адреса
+            </th>
+            <th>
+                Город
+            </th>
+            <th>
+                Улица
+            </th>
+            <th>
+                Дом
+            </th>
+            <th>
+                Квартира
+            </th>
+        </tr>
+    @foreach(var address in Model)
+    {
+        <tr>
+            <td>@address.Address_ID</td>
+            <td>@address.Area</td>
+            <td>@address.Street</td>
+            <td>@address.Number_Of_House</td>
+            <td>@address.Number_Of_Apartment</td>
+        </tr>
+    }
+</table>
+
+<div>
+<h1>Create addres</h1>
+@using (Html.BeginForm("CreateAddres", "Another_Address", FormMethod.Post))
+{
+    //(Area, Street, Number_Of_House, Number_Of_Apartment)
+<textarea name = "Area"></textarea>
+<textarea name = "Street"></textarea>
+<textarea name = "Number_Of_House"></textarea>
+<textarea name = "Number_Of_Apartment"></textarea>
+
+<button type = "submit">Create</button>
+}
+</div>

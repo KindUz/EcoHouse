@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EcoHouse.Storage.Entities
 {
-    public class Orders
+    public class Order
     {
         [Key]
         public int OrdersID { get; set; }
@@ -18,9 +18,9 @@ namespace EcoHouse.Storage.Entities
         public int Count { get; set; }
 
         [Required]
-        public string Name_Of_Dish { get; set; }
+        public int DishID { get; set; }
 
-        [ForeignKey(nameof(Name_Of_Dish))]
+        [ForeignKey(nameof(DishID))]
 
         public virtual Dish Dish { get; set; }
 

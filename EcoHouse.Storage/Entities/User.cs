@@ -32,7 +32,7 @@
         public int OrdersID { get; set; }
 
         [ForeignKey(nameof(OrdersID))]
-        public virtual Orders Orders { get; set; }
+        public virtual Order Order { get; set; }
 
         [Required]
         public string Login { get; set; }

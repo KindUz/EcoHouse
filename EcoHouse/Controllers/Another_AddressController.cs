@@ -26,10 +26,16 @@ public class Another_AddressController : Controller
     [Route("another_addresses")]
     public async Task<IList<Another_Adresses>> GetAll() => await _manager.GetAll();
 
-    [HttpPut]
-    [Route("another_addresses")]
-    public Task Create([FromBody] CreateAnother_AddressRequest request) => _manager.Create(request.Area, request.Street, request.Number_Of_House, request.Number_Of_Apartment);
-
+    //[HttpPut]
+    //[Route("another_addresses")]
+    //public Task Create([FromBody] CreateAnother_AddressRequest request) => _manager.Create(request.Area, request.Street, request.Number_Of_House, request.Number_Of_Apartment);
+    [HttpPost]
+    public IActionResult CreateAddres(string Area, string Street, int Number_Of_House, int Number_Of_Apartment)
+    {
+        _manager.Create(Area, Street, Number_Of_House, Number_Of_Apartment);
+        return RedirectToAction(nameof(Main));
+    }
+   
     [HttpDelete]
     [Route("another_addresses/{Id}")]
     public Task Delete(int id) => _manager.Delete(id);
