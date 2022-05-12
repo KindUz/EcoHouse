@@ -7,6 +7,7 @@ namespace EcoHouse.Storage.Entities
         public string Dish_ID { get; set; }
 
         public string Name { get; set; }
+
         [Required]
         public string Structure_ { get; set; }
 

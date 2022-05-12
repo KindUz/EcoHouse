@@ -1,3 +1,4 @@
+using EcoHouse.Logic.Users;
 using EcoHouse.Storage;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,6 +7,8 @@ var services = builder.Services;
 
 // Add services to the container.
 services.AddControllersWithViews();
+services.AddScoped<IUserManager, UserManager>();
+
 
 // Add Database context.
 var connectionString = builder.Configuration.GetConnectionString("DbConnection");
