@@ -9,7 +9,7 @@ namespace EcoHouse.Storage.Entities
     public class Structure
     {
         [Key]
-        public string Structure_ID { get; set; }
+        public int Structure_ID { get; set; }
 
         [Required]
         public string Ingredients { get; set; }

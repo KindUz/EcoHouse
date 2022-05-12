@@ -4,7 +4,7 @@
 
 namespace EcoHouse.Storage.Migrations
 {
-    public partial class NewBase : Migration
+    public partial class Base : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,6 +22,19 @@ namespace EcoHouse.Storage.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Another_Adresses", x => x.Address_ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name_Of_Category = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
                 });
 
             migrationBuilder.CreateTable(
@@ -69,7 +82,8 @@ namespace EcoHouse.Storage.Migrations
                 name: "structures",
                 columns: table => new
                 {
-                    Structure_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Structure_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Ingredients = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Proteins = table.Column<float>(type: "real", nullable: false),
                     Fats = table.Column<float>(type: "real", nullable: false),
@@ -107,17 +121,23 @@ namespace EcoHouse.Storage.Migrations
                 {
                     Dish_ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Structure_ = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Structure_ = table.Column<int>(type: "int", nullable: false),
                     Mass = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name_Of_Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CategoryID = table.Column<int>(type: "int", nullable: false),
                     Process_ = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Link = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_dishes", x => x.Dish_ID);
+                    table.ForeignKey(
+                        name: "FK_dishes_Categories_CategoryID",
+                        column: x => x.CategoryID,
+                        principalTable: "Categories",
+                        principalColumn: "CategoryId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_dishes_processes_Process_",
                         column: x => x.Process_,
@@ -129,25 +149,6 @@ namespace EcoHouse.Storage.Migrations
                         column: x => x.Structure_,
                         principalTable: "structures",
                         principalColumn: "Structure_ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name_Of_Category = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Categories_dishes_Name_Of_Category",
-                        column: x => x.Name_Of_Category,
-                        principalTable: "dishes",
-                        principalColumn: "Dish_ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -220,14 +221,14 @@ namespace EcoHouse.Storage.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_Name_Of_Category",
-                table: "Categories",
-                column: "Name_Of_Category");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Deliveries_AddressID",
                 table: "Deliveries",
                 column: "AddressID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_dishes_CategoryID",
+                table: "dishes",
+                column: "CategoryID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_dishes_Process_",
@@ -268,9 +269,6 @@ namespace EcoHouse.Storage.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Categories");
-
-            migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
@@ -290,6 +288,9 @@ namespace EcoHouse.Storage.Migrations
 
             migrationBuilder.DropTable(
                 name: "Another_Adresses");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "processes");

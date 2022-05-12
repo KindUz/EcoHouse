@@ -9,13 +9,10 @@ namespace EcoHouse.Storage.Entities
     public class Category
     {
         [Key]
-        public int Id { get; set; }
+        public int CategoryId { get; set; }
 
         [Required]
         public string Name_Of_Category { get; set; }
-
-        [ForeignKey(nameof(Name_Of_Category))]
-        public virtual Dish Dish { get; set; }
 
     }
 }

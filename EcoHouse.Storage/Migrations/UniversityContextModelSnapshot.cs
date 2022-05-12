@@ -50,19 +50,17 @@ namespace EcoHouse.Storage.Migrations
 
             modelBuilder.Entity("EcoHouse.Storage.Entities.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"), 1L, 1);
 
                     b.Property<string>("Name_Of_Category")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name_Of_Category");
+                    b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
                 });
@@ -93,6 +91,9 @@ namespace EcoHouse.Storage.Migrations
                     b.Property<string>("Dish_ID")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -108,10 +109,6 @@ namespace EcoHouse.Storage.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name_Of_Category")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
@@ -119,11 +116,12 @@ namespace EcoHouse.Storage.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Structure_")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Structure_")
+                        .HasColumnType("int");
 
                     b.HasKey("Dish_ID");
+
+                    b.HasIndex("CategoryID");
 
                     b.HasIndex("Process_");
 
@@ -226,8 +224,11 @@ namespace EcoHouse.Storage.Migrations
 
             modelBuilder.Entity("EcoHouse.Storage.Entities.Structure", b =>
                 {
-                    b.Property<string>("Structure_ID")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Structure_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Structure_ID"), 1L, 1);
 
                     b.Property<float>("Calorific")
                         .HasColumnType("real");
@@ -302,17 +303,6 @@ namespace EcoHouse.Storage.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("EcoHouse.Storage.Entities.Category", b =>
-                {
-                    b.HasOne("EcoHouse.Storage.Entities.Dish", "Dish")
-                        .WithMany()
-                        .HasForeignKey("Name_Of_Category")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Dish");
-                });
-
             modelBuilder.Entity("EcoHouse.Storage.Entities.Delivery", b =>
                 {
                     b.HasOne("EcoHouse.Storage.Entities.Another_Adresses", "Another_Adresses")
@@ -326,6 +316,12 @@ namespace EcoHouse.Storage.Migrations
 
             modelBuilder.Entity("EcoHouse.Storage.Entities.Dish", b =>
                 {
+                    b.HasOne("EcoHouse.Storage.Entities.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EcoHouse.Storage.Entities.Process", "Process")
                         .WithMany()
                         .HasForeignKey("Process_")
@@ -337,6 +333,8 @@ namespace EcoHouse.Storage.Migrations
                         .HasForeignKey("Structure_")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Category");
 
                     b.Navigation("Process");
 

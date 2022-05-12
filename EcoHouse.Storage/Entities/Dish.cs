@@ -9,7 +9,7 @@ namespace EcoHouse.Storage.Entities
         public string Name { get; set; }
 
         [Required]
-        public string Structure_ { get; set; }
+        public int Structure_ { get; set; }
 
         [ForeignKey(nameof(Structure_))]
         public virtual Structure Structure { get; set; }
@@ -21,8 +21,10 @@ namespace EcoHouse.Storage.Entities
         public string Description { get; set; }
 
         [Required]
+        public int CategoryID { get; set; }
 
-        public string Name_Of_Category { get; set; }
+        [ForeignKey(nameof(CategoryID))]
+        public virtual Category Category { get; set; }
 
         [Required]
 

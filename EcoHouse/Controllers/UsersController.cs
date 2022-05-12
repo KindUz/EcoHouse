@@ -19,7 +19,7 @@ public class UsersController : Controller
 
     [HttpPut]
     [Route("users")]
-    public Task Create([FromBody] CreateUserRequest request) => _manager.Create(request.Name);   
+    public Task Create([FromBody] CreateUserRequest request) => _manager.Create(request.Name, request.LastName, request.AddressID, request.Email, request.Phone, request.Food_Features_ID, request.OrdersID, request.Login, request.Password);   
 
     [HttpDelete]
     [Route("users/{id}")]

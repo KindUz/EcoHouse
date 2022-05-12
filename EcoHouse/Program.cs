@@ -1,3 +1,7 @@
+using EcoHouse.Controllers;
+using EcoHouse.Logic.Another_Address;
+using EcoHouse.Logic.Categories;
+using EcoHouse.Logic.Structures;
 using EcoHouse.Logic.Users;
 using EcoHouse.Storage;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
 // Add services to the container.
+builder.Services.AddScoped<ICategoryManager, CategoryManager>();
+builder.Services.AddScoped<IAnother_AdressManager, Another_AdressManager>();
+builder.Services.AddScoped<IStructureManager, StructureManager>();
+
+
 services.AddControllersWithViews();
 services.AddScoped<IUserManager, UserManager>();
 
