@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcoHouse.Controllers;
 
-public class OrderController
+public class OrderController : Controller
 {
     private readonly IOrderManager _manager;
 
