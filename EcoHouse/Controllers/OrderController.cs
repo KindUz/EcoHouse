@@ -13,7 +13,6 @@ public class OrderController : Controller
     {
         _manager = manager;
     }
-
     [HttpGet]
     [Route("order")]
     public async Task<IList<Order>> GetAll() => await _manager.GetAll();

@@ -1,19 +1,28 @@
-﻿@{
+﻿@model IList<EcoHouse.Storage.Entities.User>
+
+@{
     ViewData["Title"] = "Регистрация";
 }
-
          <section class="enter start block">
             <div class="enter__container container">
                <h2 class="enter__title title">Регистрация</h2>
                <div class="content-enter__form">
-                  <form class="form sign">
-                     <div class="name__block form-block">
+                  @*<form class="form sign">*@
+                     @using (Html.BeginForm("CreateUser", "Users", FormMethod.Post)){
+                        <textarea name = "Name"></textarea><br />
+                        <textarea name = "LastName"></textarea><br />
+                        <textarea name = "Email"></textarea><br />
+                        <textarea name = "Phone"></textarea><br />
+                        <textarea name = "Login"></textarea><br />
+                        <textarea name = "Password"></textarea><br />
+                    <button type = "submit">Create</button>
+                     @*<div class="name__block form-block">
                         <h6 class="form-block__title">Ваше имя</h6>
-                        <input class="name place-form" type="text" name="name" placeholder="Имя">
+                        <textarea name = "Name"></textarea>
                      </div>
                      <div class="lastname__block form-block">
                         <h6 class="form-block__title">Ваша фамилия</h6>
-                        <input class="lastname place-form" type="text" name="lastname" placeholder="Фамилия">
+                        <textarea name = "LastName"></textarea>
                      </div>
                      <div class="gender__block form-block form-block-gender">
                         <h6 class="form-block__title">Ваш пол</h6>
@@ -28,19 +37,23 @@
                      </div>
                      <div class="email__block form-block">
                         <h6 class="form-block__title">Ваша почта</h6>
-                        <input class="email place-form" type="text" name="email" placeholder="Email">
+                        <textarea name = "Email"></textarea>
                      </div>
                      <div class="phone__block form-block">
                         <h6 class="form-block__title">Ваш телефон</h6>
-                        <input class="number place-form" type="text" name="number" placeholder="+7 (">
+                        <textarea name = "Phone"></textarea>
+                     </div>
+                     <div class="phone__block form-block">
+                        <h6 class="form-block__title">Ваш логин</h6>
+                        <textarea name = "Login"></textarea>
                      </div>
                      <div class="pass__block form-block">
                         <h6 class="form-block__title">Ваш пароль</h6>
-                        <input class="pass place-form" type="password" name="pass" placeholder="Пароль">
+                        <textarea name = "Password"></textarea>
                      </div>
                      <div class="passcheck__block form-block">
                         <h6 class="form-block__title">Подтвердите пароль</h6>
-                        <input class="pass place-form" type="password" name="pass" placeholder="Пароль">
+                        <textarea name = "Password"></textarea>
                         <div class="pass__error">Пароли не совпадают</div>
                      </div>
                      <div class="politic__block form-block">
@@ -48,9 +61,12 @@
                            value="yes">
                         <label class="label" for="politic">Я принимаю <a href="#">Политику
                               конфиденциальности</a></label>
-                     </div>
-                     <input class="input content-enter__sign" type="submit" value="Зарегистрироваться" name="submit">
-                  </form>
+                     </div>*@
+                    @* <input class="input content-enter__sign" type="submit" value="Зарегистрироваться" name="submit">*@
+                     }
+                 @* </form>*@
                </div>
             </div>
          </section>
+         
+         

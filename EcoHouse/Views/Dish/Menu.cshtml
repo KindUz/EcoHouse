@@ -1,40 +1,52 @@
-﻿@{
-    ViewData["Title"] = "Меню";
+﻿@page
+@{
+    ViewBag.Title = "Меню";
 }
-
+        
+          <section class="search">
+            <div class="search__container container">
+               <div class="search__head">
+                  <h2 class="search__title title">Поиск</h2>
+               </div>
+               <div class="search__form">
+               @using (Html.BeginForm()) {
+                 <p class="search__place">
+                     @Html.TextBox("Text")
+                     </p>
+                <button type="submit">Поиск</button>
+                }
+                </div>
+            </div>
+         </section>
          <section class="menu start block margin">
             <div class="menu__container container">
                <div class="menu__head head-menu">
                   <h2 class="head-menu__title title">Наши блюда</h2>
                </div>
                <div class="menu__content content-menu">
-            @for (var index = 1; index < 8; index++)
+    @foreach(var dish in ViewBag.Dishes)
             {
                   <div class="content-menu__item item-menu">
                      <div class="item-menu__image">
-                        <picture><source srcset="/img/dish/food3.webp" type="image/webp"><img src="/img/dish/food3.png" alt="food"></picture>
+                        <img src="@dish.Link" alt="food">
                      </div>
                      <div class="item-menu__about about-menu-item">
-                        <h3 class="about-menu-item__title">Салат с брокколи и цветной капусты</h3>
+                        <h3 class="about-menu-item__title">@dish.Name</h3>
                         <div class="about-menu-item__content content-item">
-                           <div class="content-item__desc">Полезный и вкусный салат из брокколи и цветной капусты,
-                              сваренных на пару, разнообразит завтрак и отлично дополнит обед или ужин.</div>
+                           <div class="content-item__desc">@dish.Description</div>
                            <div class="content-item__about about-content-item">
                               <h3 class="about-content-item__title">О блюде:</h3>
-                              <div class="about-content-item__kcal">48 ккал/100 г</div>
+                              <div class="about-content-item__kcal">@dish.Structure.Calorific ккал/100 г</div>
                               <div class="about-content-item__menu">
                                  <picture><source srcset="/img/icons/menu.webp" type="image/webp"><img src="/img/icons/menu.png" alt="menu"></picture>
                                  <ul class="about-content-item__list">
-                                        @for (var product = 1; product < 8; product++)
-                                        {
-                                        <li>Брокколи</li>
-                                        }
+                                     @dish.Structure.Ingredients
                                  </ul>
                               </div>
                            </div>
                         </div>
                         <div class="about-menu-item__control control-item">
-                           <a asp-area="" asp-controller="Home" asp-action="Dish" class="control-item__button button-default">Рецепт<span
+                           <a asp-area="" asp-controller="Dish" asp-action="Dish" class="control-item__button button-default">Рецепт<span
                                  class="icon-fork"></span></a>
                            <a href="#" class="control-item__button buy button-default">
                               <picture><source srcset="/img/icons/scooter.webp" type="image/webp"><img src="/img/icons/scooter.png" alt="scooter"></picture>Заказать

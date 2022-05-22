@@ -12,7 +12,8 @@
                      <div class="about-personal__update">
                         <a href="#popup-form-image" class="popup-link icon-update">Обновить фотографию</a>
                      </div>
-                     <div class="about-personal__name">Дуэйн “Скала” Джонсон</div>
+                     <div class="about-personal__name">Дуэйн “Скала” Джонсон 
+                </div>
                   </div>
                   <div class="content-personal__info info-personal">
                      <div class="info-personal__name">Ваша почта</div>
@@ -58,7 +59,8 @@
                   <a href="#popup-form-add" class="info-personal__add icon-more popup-link">Добавить адрес</a>
                </div>
                <div class="personal__exit">
-                  <a asp-area="" asp-controller="Home" asp-action="Index" class="exit icon-exit"><span>Выйти</span></a>
+                  @*<a asp-area="" asp-controller="Home" asp-action="logout" class="exit icon-exit"><span>Выйти</span></a>*@
+                  @Html.ActionLink("Logout", "Logout")
                </div>
             </div>
             <div id="popup-form-image" class="popup">

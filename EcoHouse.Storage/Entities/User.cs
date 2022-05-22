@@ -11,12 +11,11 @@
         [Required]
         public string LastName { get; set; }
 
-        [Required]
-        public int AddressID { get; set; }
+        public int? AddressID { get; set; }
 
         [ForeignKey(nameof(AddressID))]
 
-        public virtual Main_Address Main_Address { get; set; }
+        public virtual Main_Address? Main_Address { get; set; }
 
         [Required]
         public string Email { get; set; }
@@ -24,15 +23,15 @@
         [Required]
         public string Phone { get; set; }
 
-        public int Food_Features_ID { get; set; }
+        public int? Food_Features_ID { get; set; }
 
         [ForeignKey(nameof(Food_Features_ID))]
-        public virtual Food_Features Food_Features { get; set; }
+        public virtual Food_Features? Food_Features { get; set; }
 
-        public int OrdersID { get; set; }
+        public int? OrdersID { get; set; }
 
         [ForeignKey(nameof(OrdersID))]
-        public virtual Order Order { get; set; }
+        public virtual Order? Order { get; set; }
 
         [Required]
         public string Login { get; set; }

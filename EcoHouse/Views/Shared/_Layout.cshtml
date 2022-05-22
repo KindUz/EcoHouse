@@ -20,9 +20,9 @@
          </div>
          <div class="menu-header__content">
             <div class="menu-header__button">
-               <a asp-area="" asp-controller="Home" asp-action="Menu" class="menu-header__dish button-default">Блюда<span
+               <a asp-area="" asp-controller="Dish" asp-action="Menu" class="menu-header__dish button-default">Блюда<span
                      class="icon-fork"></span></a>
-               <a asp-area="" asp-controller="Home" asp-action="Delivery" class="menu-header__delivery button-default">Доставка<span
+               <a asp-area="" asp-controller="Dish" asp-action="Delivery" class="menu-header__delivery button-default">Доставка<span
                      class="icon-spoon"></span></a>
             </div>
             <div class="select" id="city">
@@ -48,11 +48,17 @@
                </div>
             </div>
             <div class="menu-header__small-button">
-               <a href="#" class="menu-header__search search-open icon-search icon"><span>Поиск</span></a>
                <a asp-area="" asp-controller="Home" asp-action="Basket" class="menu-header__bag icon-bag icon"><span
                      class="bag-count">4</span><span>Корзина</span></a>
-               <a asp-area="" asp-controller="Home" asp-action="SignIn" class="menu-header__user icon-user icon"><span>Личный кабинет</span></a>
-            </div>
+                     @if (ViewBag.isUser == "true")
+                     {
+                         <a asp-area="" asp-controller="Home" asp-action="Personal" class="menu-header__user">CCC</a>
+                     } 
+                     else 
+                     {
+                     <a asp-area="" asp-controller="Users" asp-action="SignIn" class="menu-header__user icon-user icon"><span>Личный кабинет</span></a>
+                     }
+                        </div>
          </div>
       </nav>
       <div class="header__burger"><span class="icon-fork"></span><span class="icon-spoon"></span></div>
@@ -75,23 +81,6 @@
    </div>
 </header>
       <main class="main">
-          <section class="search">
-            <div class="search__container container">
-               <div class="search__head">
-                  <h2 class="search__title title">Поиск</h2>
-                  <button class="search-close icon-close search-open"></button>
-               </div>
-               <form class="search__form form">
-                  <input class="search-input" type="text" name="search" placeholder="Введите название блюда">
-                  <ul class="search-input__list">
-            @for (var index = 1; index < 2; index++) 
-            {
-                     <li><a>Нет ничего</a></li>
-            }
-                  </ul>
-               </form>
-            </div>
-         </section>
     @RenderBody()
             <div class="sale__block sale-change">Изменено</div>
             <div class="sale__block sale-add">Добавлено</div>

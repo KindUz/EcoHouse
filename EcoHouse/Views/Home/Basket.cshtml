@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IList<EcoHouse.Storage.Entities.Order>
+@{
     ViewData["Title"] = "Корзина";
 }
 
@@ -13,21 +14,24 @@
                         <div class="head-table__price">Цена</div>
                         <div class="head-table__info">Информация</div>
                      </div>
-                @for (var index = 1; index < 6; index++)
+                @foreach(var order in Model)
                 {
                      <div class="table-basket__item item-table">
                         <div class="item-table__image">
-                           <picture><source srcset="/img/dish/food3.webp" type="image/webp"><img src="/img/dish/food3.png" alt="food"></picture>
+                            <img src="@order.Dish.Link" alt="food">
                         </div>
-                        <div class="item-table__name">Салат с брокколи и цветной капусты</div>
+                        <div class="item-table__name">@order.Dish.Name</div>
                         <div class="item-table__count count-item control-count">
                            <button class="count-item__button sub">−</button>
-                           <div class="count-item__value count">1</div>
+                           <div class="count-item__value count">@order.Count</div>
                            <button class="count-item__button inc">+</button>
                         </div>
-                        <div class="item-table__price">250 ₽</div>
+                        <div class="item-table__price">@order.Price ₽</div>
                         <div class="item-table__control control-item">
-                           <button class="control-item__remove remove-button">Удалить</button>
+                            @using (Html.BeginForm("DeleteOrder", "Order", FormMethod.Post))
+                            {
+                                <button type = "submit" class="control-item__remove remove-button">Удалить</button>
+                            }
                         </div>
                      </div>
                 }

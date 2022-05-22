@@ -10,6 +10,7 @@ using EcoHouse.Logic.Structures;
 using EcoHouse.Logic.Users;
 using EcoHouse.Storage;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -23,12 +24,19 @@ builder.Services.AddScoped<IFood_featuresManager, Food_featuresManager>();
 builder.Services.AddScoped<IDeliveryManager, DeliveryManager>();
 builder.Services.AddScoped<IMain_AddressManager, Main_AddressManager>();
 builder.Services.AddScoped<IDishManager, DishManager>();
-
-
+//cookie
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+{
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+    options.SlidingExpiration = true;
+    options.AccessDeniedPath = "/Forbidden/";
+});
+//
 
 
 services.AddControllersWithViews();
 services.AddScoped<IUserManager, UserManager>();
+services.AddRazorPages();
 
 
 // Add Database context.
@@ -50,10 +58,16 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+//cookie
+app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapRazorPages();
+app.MapDefaultControllerRoute();
+//
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Another_Address}/{action=Main}/{id?}");
+    pattern: "{controller=Dish}/{action=Menu}/{id?}");
+
 
 app.Run();

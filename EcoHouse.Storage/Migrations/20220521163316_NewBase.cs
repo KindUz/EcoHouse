@@ -116,7 +116,8 @@ namespace EcoHouse.Storage.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryID = table.Column<int>(type: "int", nullable: false),
                     Recipe = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Link = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Link = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -172,11 +173,11 @@ namespace EcoHouse.Storage.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AddressID = table.Column<int>(type: "int", nullable: false),
+                    AddressID = table.Column<int>(type: "int", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Food_Features_ID = table.Column<int>(type: "int", nullable: false),
-                    OrdersID = table.Column<int>(type: "int", nullable: false),
+                    Food_Features_ID = table.Column<int>(type: "int", nullable: true),
+                    OrdersID = table.Column<int>(type: "int", nullable: true),
                     Login = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -187,20 +188,17 @@ namespace EcoHouse.Storage.Migrations
                         name: "FK_Users_Food_Features_Food_Features_ID",
                         column: x => x.Food_Features_ID,
                         principalTable: "Food_Features",
-                        principalColumn: "Food_FeaturesId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Food_FeaturesId");
                     table.ForeignKey(
                         name: "FK_Users_main_Addresses_AddressID",
                         column: x => x.AddressID,
                         principalTable: "main_Addresses",
-                        principalColumn: "Address_ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Address_ID");
                     table.ForeignKey(
                         name: "FK_Users_Orders_OrdersID",
                         column: x => x.OrdersID,
                         principalTable: "Orders",
-                        principalColumn: "OrdersID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "OrdersID");
                 });
 
             migrationBuilder.CreateIndex(
