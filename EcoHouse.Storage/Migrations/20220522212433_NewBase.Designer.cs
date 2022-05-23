@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcoHouse.Storage.Migrations
 {
     [DbContext(typeof(UniversityContext))]
-    [Migration("20220522105020_FB")]
-    partial class FB
+    [Migration("20220522212433_NewBase")]
+    partial class NewBase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,6 +49,22 @@ namespace EcoHouse.Storage.Migrations
                     b.HasKey("Address_ID");
 
                     b.ToTable("Another_Adresses");
+                });
+
+            modelBuilder.Entity("EcoHouse.Storage.Entities.Array_Of_Phones", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Array_Of_Phones");
                 });
 
             modelBuilder.Entity("EcoHouse.Storage.Entities.Category", b =>
@@ -118,8 +134,14 @@ namespace EcoHouse.Storage.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Recipe")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Special")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Structure_")
@@ -128,30 +150,18 @@ namespace EcoHouse.Storage.Migrations
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("count")
+                        .HasColumnType("int");
+
                     b.HasKey("Dish_ID");
 
                     b.HasIndex("CategoryID");
 
+                    b.HasIndex("ProductID");
+
                     b.HasIndex("Structure_");
 
                     b.ToTable("dishes");
-                });
-
-            modelBuilder.Entity("EcoHouse.Storage.Entities.Food_Features", b =>
-                {
-                    b.Property<int>("Food_FeaturesId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Food_FeaturesId"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Food_FeaturesId");
-
-                    b.ToTable("Food_Features");
                 });
 
             modelBuilder.Entity("EcoHouse.Storage.Entities.Main_Address", b =>
@@ -214,6 +224,27 @@ namespace EcoHouse.Storage.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("EcoHouse.Storage.Entities.Product", b =>
+                {
+                    b.Property<int>("Product_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Product_ID"), 1L, 1);
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Product_ID");
+
+                    b.ToTable("Products");
+                });
+
             modelBuilder.Entity("EcoHouse.Storage.Entities.Structure", b =>
                 {
                     b.Property<int>("Structure_ID")
@@ -258,9 +289,6 @@ namespace EcoHouse.Storage.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Food_Features_ID")
-                        .HasColumnType("int");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -284,11 +312,12 @@ namespace EcoHouse.Storage.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Photo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AddressID");
-
-                    b.HasIndex("Food_Features_ID");
 
                     b.HasIndex("OrdersID");
 
@@ -314,6 +343,12 @@ namespace EcoHouse.Storage.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EcoHouse.Storage.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EcoHouse.Storage.Entities.Structure", "Structure")
                         .WithMany()
                         .HasForeignKey("Structure_")
@@ -321,6 +356,8 @@ namespace EcoHouse.Storage.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+
+                    b.Navigation("Product");
 
                     b.Navigation("Structure");
                 });
@@ -350,15 +387,9 @@ namespace EcoHouse.Storage.Migrations
                         .WithMany()
                         .HasForeignKey("AddressID");
 
-                    b.HasOne("EcoHouse.Storage.Entities.Food_Features", "Food_Features")
-                        .WithMany()
-                        .HasForeignKey("Food_Features_ID");
-
                     b.HasOne("EcoHouse.Storage.Entities.Order", "Order")
                         .WithMany()
                         .HasForeignKey("OrdersID");
-
-                    b.Navigation("Food_Features");
 
                     b.Navigation("Main_Address");
 

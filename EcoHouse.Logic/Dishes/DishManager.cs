@@ -10,9 +10,9 @@ public class DishManager : IDishManager
     }
     public async Task<IList<Dish>> GetAll() => await _context.dishes.ToListAsync();
 
-    public async Task Create(string name, int structure, int mass, int price, string description, int categoryid, string recipe, string link)
+    public async Task Create(string name, int structure, int mass, int price, string description, int categoryid, string recipe, string link, int productID)
     {
-        var dish = new Dish { Name = name, Structure_ = structure, Mass = mass, Price = price, Description = description, CategoryID = categoryid, Recipe = recipe, Link = link };
+        var dish = new Dish { Name = name, Structure_ = structure, Mass = mass, Price = price, Description = description, CategoryID = categoryid, Recipe = recipe, Link = link, ProductID = productID };
 
         _context.dishes.Add(dish);
 

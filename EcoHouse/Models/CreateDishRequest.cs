@@ -9,5 +9,6 @@ public class CreateDishRequest
     public int CategoryID { get; set; }
     public string Recipe { get; set; }
     public string Link { get; set; }
+    public int ProductID { get; set; }
 
 }

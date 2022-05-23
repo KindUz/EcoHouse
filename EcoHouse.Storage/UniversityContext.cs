@@ -20,10 +20,10 @@ namespace EcoHouse.Storage
         public DbSet<Another_Adresses> Another_Adresses { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Delivery> Deliveries { get; set; }
-        public DbSet<Food_Features> Food_Features { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<User> Users { get; set; }
-
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Array_Of_Phones> Array_Of_Phones { get; set; }
 
 
     }

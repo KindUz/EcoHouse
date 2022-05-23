@@ -8,5 +8,8 @@ public interface IUserManager
 
     User CheckPassAndLog(string email, string pass);
 
-    Task RePassword(string password, int Id);
+    Task RePassword(string password, string OldPassword, int Id);
+    Task ReEmail(string email, int Id);
+    Task RePhone(string phone, int Id);
+
 }

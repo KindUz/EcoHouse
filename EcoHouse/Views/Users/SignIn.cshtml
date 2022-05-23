@@ -1,19 +1,22 @@
-﻿@{
-    ViewData["Title"] = "Вход";
+﻿@page
+@{
+    ViewBag.Title = "Вход";
 }
 
          <section class="enter start block">
             <div class="enter__container container">
                <h2 class="enter__title title">Вход в личный кабинет</h2>
                <div class="enter__content content-enter">
-                  <h3 class="content-enter__title">Введите номер телефона и пароль</h3>
+                  <h3 class="content-enter__title">Введите почту и пароль</h3>
                   <div class="content-enter__form">
                      <form asp-action="SignIn" asp-controller="Users">
-                     @*<form class="form enter-form" asp-action="SignIn" asp-controller="Home">*@
-                        <input class="login place-form" type="text" name="login" placeholder="Логин">
+                        <input class="login place-form" type="text" name="login" placeholder="Почта">
                         <input class="pass place-form" type="text" name="pass" placeholder="Пароль">
-                        <div class="form__empty pass-error">Неправильный пароль</div>
-                        <input class="input" type="submit" value="Войти" name="submit">
+                    @if (ViewBag.isUser == "false")
+                    {
+                        <div class="form__empty pass-error">Неправильная почта или пароль</div>
+                    }
+                    <input class="input" type="submit" value="Войти" name="submit">
                      </form>
                   </div>
                   <a asp-area="" asp-controller="Users" asp-action="SignUp" class="content-enter__sign">Зарегистрироваться</a>

@@ -22,12 +22,6 @@
 
         [Required]
         public string Phone { get; set; }
-
-        public int? Food_Features_ID { get; set; }
-
-        [ForeignKey(nameof(Food_Features_ID))]
-        public virtual Food_Features? Food_Features { get; set; }
-
         public int? OrdersID { get; set; }
 
         [ForeignKey(nameof(OrdersID))]
@@ -38,6 +32,8 @@
 
         [Required]
         public string Password { get; set; }
+
+        public string? Photo { get; set; }
 
 
     }

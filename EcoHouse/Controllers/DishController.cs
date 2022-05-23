@@ -11,6 +11,7 @@ public class DishController : Controller
 {
     private readonly IDishManager _managerDish;
     private readonly IStructureManager _managerStructure;
+    static private int _dishID = -1;
     public DishController(IDishManager managerDish, IStructureManager managerStructure)
     {
         _managerDish = managerDish;
@@ -18,12 +19,14 @@ public class DishController : Controller
     }
     public async Task<IActionResult> Menu()
     {
+        _dishID = -1;
         ViewBag.Dishes = await _managerDish.GetAll();
         ViewBag.Structures = await _managerStructure.GetAll();
         return View();
     }
     public async Task<IActionResult> MenuChoice()
     {
+        _dishID = -1;
         ViewBag.Dishes = await _managerDish.GetAll();
         ViewBag.Structures = await _managerStructure.GetAll();
         return View();
@@ -32,13 +35,27 @@ public class DishController : Controller
     {
         ViewBag.Dishes = await _managerDish.GetAll();
         ViewBag.Structures = await _managerStructure.GetAll();
-        return View();
+        ViewBag.SaveDish = _dishID;
+        if (ViewBag.SaveDish == -1)
+        {
+            return RedirectToAction("Menu");
+        }
+        else
+        {
+            return View();
+        }
     }
     public async Task<IActionResult> Delivery()
     {
+        _dishID = -1;
         ViewBag.Dishes = await _managerDish.GetAll();
         ViewBag.Structures = await _managerStructure.GetAll();
         return View();
+    }
+    public IActionResult SaveDish(int dish)
+    {
+        _dishID = dish;
+        return RedirectToAction("Dish");
     }
 
     [HttpGet]
@@ -47,7 +64,7 @@ public class DishController : Controller
 
     [HttpPut]
     [Route("dishes")]
-    public Task Create([FromBody] CreateDishRequest request) => _managerDish.Create(request.Name, request.Structure_, request.Mass, request.Price, request.Description, request.CategoryID, request.Recipe, request.Link);
+    public Task Create([FromBody] CreateDishRequest request) => _managerDish.Create(request.Name, request.Structure_, request.Mass, request.Price, request.Description, request.CategoryID, request.Recipe, request.Link, request.ProductID);
 
     [HttpPost]
     public async Task<IActionResult> Menu(string Text)
@@ -58,9 +75,10 @@ public class DishController : Controller
 
         if (!string.IsNullOrEmpty(Text)) 
         {
-            dish = dish.Where(s => s.Name.Contains(Text));
+            dish = dish.Where(s => s.Name.ToLower().Contains(Text.ToLower()));
         }
         ViewBag.Dishes = dish;
+        ViewBag.Structures = await _managerStructure.GetAll();
         return View();
     }
 

@@ -1,56 +1,67 @@
-﻿@{
-    ViewData["Title"] = "Салат с брокколи и цветной капусты";
+﻿@page
+@{
+    ViewBag.Title = "Блюдо";
 }
 
-         <section class="dish start block">
-            <div class="dish__container container">
-               <h2 class="dish__title title">Салат с брокколи и цветной капусты</h2>
-               <div class="dish__content content-dish">
-                  <div class="content-dish__image">
-                     <picture><source srcset="/img/dish/food3.webp" type="image/webp"><img src="/img/dish/food3.png" alt="food"></picture>
-                  </div>
-                  <div class="content-dish__control control-dish">
-                     <div class="control-dish__price">150 ₽</div>
-                     <a href="#" class="control-item__button buy button-default">
-                        <picture><source srcset="/img/icons/scooter.webp" type="image/webp"><img src="/img/icons/scooter.png" alt="scooter"></picture>Заказать
-                        <span class="icon-spoon"></span>
-                     </a>
-                  </div>
-                  <div class="content-dish__about about-dish">
-                     <div class="about-dish__desc">Полезный и вкусный салат из брокколи и цветной капусты, сваренных на
-                        пару, разнообразит завтрак и отлично дополнит обед или ужин.</div>
-                     <div class="about-dish__info info-dish">
-                        <div class="info-dish__content content-info-dish">
-                           <div class="about-content-item__kcal">48 ккал/100 г</div>
-                           <div class="content-info-dish__peculiarities"><span class="no"></span>Подходит для любого типа питания</div>
+@if (ViewBag.SaveDish != null)
+{
+    @foreach (var dish in ViewBag.Dishes)
+    {
+        @if (dish.Dish_ID == ViewBag.SaveDish)
+        {
+            <section class="dish start block">
+                <div class="dish__container container">
+                    <h2 class="dish__title title">@dish.Name</h2>
+                    <div class="dish__content content-dish">
+                        <div class="content-dish__image">
+                        <img src="@dish.Link" alt="food">
                         </div>
-                     </div>
-                     <div class="about-content-item__menu">
-                        <picture><source srcset="/img/icons/menu.webp" type="image/webp"><img src="/img/icons/menu.png" alt="menu"></picture>
-                        <ul class="about-content-item__list">
-            @for (var index = 1; index < 5; index++) {
+                        <div class="content-dish__control control-dish">
+                            <div class="control-dish__price">@dish.Price ₽</div>
+                            <a href="#" class="control-item__button buy button-default">
+                                <picture><source srcset="/img/icons/scooter.webp" type="image/webp"><img src="/img/icons/scooter.png" alt="scooter"></picture>Заказать
+                                <span class="icon-spoon"></span>
+                            </a>
+                        </div>
+                        <div class="content-dish__about about-dish">
+                            <div class="about-dish__desc">@dish.Description</div>
+                            <div class="about-dish__info info-dish">
+                                <div class="info-dish__content content-info-dish">
+                                    <div class="about-content-item__kcal">@dish.Structure.Calorific ккал/100 г</div>
+                                    <div class="content-info-dish__peculiarities"><span class="no"></span>Подходит для любого типа питания</div>
+                                </div>
+                            </div>
+                            <div class="about-content-item__menu">
+                                <picture><source srcset="/img/icons/menu.webp" type="image/webp"><img src="/img/icons/menu.png" alt="menu"></picture>
+                                <ul class="about-content-item__list">
+                                     @foreach (var ingredient in dish.Structure.Ingredients.Split(','))
+                                     {
+                                         <li>@ingredient.Substring(0, 1).ToUpper()@ingredient.Substring(1, ingredient.Length - 1).ToLower()</li>
+                                     }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dish__process process-dish">
+                        <h3 class="small-title">Рецепт:</h3>
+                        <ol type="1" class="process-dish__list">
+                            @foreach (var ingredient in dish.Recipe.Split('/'))
+                            {
+                                 <li>@ingredient</li>
+                            }
+                        </ol>
+                    </div>
+                    <div class="dish__bju bju-dish">
+                        <h3 class="small-title">Пищевая ценность:</h3>
+                        <div class="bju-dish__b">Б: @dish.Structure.Proteins грамма</div>
+                        <div class="bju-dish__j">Ж: @dish.Structure.Fats грамм</div>
+                        <div class="bju-dish__u">У: @dish.Structure.Carbohydrates грамм</div>
+                        <div class="bju-dish__k">Калорийность: @dish.Structure.Calorific кКал</div>
+                    </div>
+                </div>
+            </section>
+        }
 
-                           <li>Брокколи - 150 грамм</li>
-            }
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-               <div class="dish__process process-dish">
-                  <h3 class="small-title">Рецепт:</h3>
-                  <ol type="1" class="process-dish__list">
-            @for (var index = 1; index < 9; index++) 
-            {
-                     <li>Брокколи и цветную капусту помыть.</li>
-            }
-                  </ol>
-               </div>
-               <div class="dish__bju bju-dish">
-                  <h3 class="small-title">Пищевая ценность:</h3>
-                  <div class="bju-dish__b">Б: 3.4 грамма</div>
-                  <div class="bju-dish__j">Ж: 5 грамм</div>
-                  <div class="bju-dish__u">У: 24.2 грамм</div>
-                  <div class="bju-dish__k">Калорийность: 155 кКал</div>
-               </div>
-            </div>
-         </section>
+    }
+
+}

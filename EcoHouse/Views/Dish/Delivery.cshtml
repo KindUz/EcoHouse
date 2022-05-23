@@ -1,5 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Доставка";
+﻿@page
+@{
+    ViewBag.Title = "Доставка";
+    var count = 0;
 }
 
          <section class="delivery start block">
@@ -11,25 +13,42 @@
                </div>
                <h2 class="delivery__title title">Наши вкуснейшие EcoНаборы</h2>
                <div class="delivery__content content-delivery">
-            @for (var index = 1; index < 7; index++)
+            @if (ViewBag.Dishes != null)
             {
+            @foreach(var dish in ViewBag.Dishes)
+            {
+                    @if (dish.Name.Contains("Набор"))
+                    {
                   <div class="content-delivery__item item-delivery">
                      <div class="item-delivery__image">
-                        <picture><source srcset="/img/delivery/bag1.webp" type="image/webp"><img src="/img/delivery/bag1.png" alt="bag"></picture>
+                        <img src="@dish.Link" alt="bag">
                      </div>
-                     <h3 class="item-delivery__title height-function">Набор “Позитивный”</h3>
-                     <div class="about-content-item__kcal">134 ккал/100 г</div>
+                     <h3 class="item-delivery__title height-function">@dish.Name</h3>
+                     <div class="about-content-item__kcal">@dish.Structure.Calorific ккал/100 г</div>
                      <div class="about-content-item__menu">
                         <picture><source srcset="/img/icons/menu.webp" type="image/webp"><img src="/img/icons/menu.png" alt="menu"></picture>
-                        <div class="about-content-item__list">Содержит: овощи, филе курицы и шоколадный
-                           десерт</div>
+                        <div class="about-content-item__list">Содержит: @dish.Structure.Ingredients</div>
                      </div>
-                     <div class="item-delivery__price">690 ₽</div>
+                     <div class="item-delivery__price">@dish.Price ₽</div>
                      <a href="#" class="control-item__button buy button-default">
                         <picture><source srcset="/img/icons/scooter.webp" type="image/webp"><img src="/img/icons/scooter.png" alt="scooter"></picture>Заказать
                      </a>
+                        </div>
+                    } else
+                    {
+                        count++;
+                    }
+                }
+            } else
+            {
+                  <div class="content-delivery__item item-delivery">
+                     <h3 class="item-delivery__title height-function">Пусто</h3>
                   </div>
             }
-               </div>
+            @if (count == ViewBag.Dishes.Count)
+            {
+                <div class="content-delivery__empty">Пусто</div>
+            }
+        </div>
             </div>
          </section>

@@ -2,7 +2,6 @@ using EcoHouse.Controllers;
 using EcoHouse.Logic.Another_Address;
 using EcoHouse.Logic.Categories;
 using EcoHouse.Logic.Deliveries;
-using EcoHouse.Logic.Food_features;
 using EcoHouse.Logic.Main_Addresses;
 using EcoHouse.Logic.Dishes;
 using EcoHouse.Logic.Orders;
@@ -11,6 +10,7 @@ using EcoHouse.Logic.Users;
 using EcoHouse.Storage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using EcoHouse.Logic.Products;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -20,10 +20,11 @@ builder.Services.AddScoped<ICategoryManager, CategoryManager>();
 builder.Services.AddScoped<IAnother_AdressManager, Another_AdressManager>();
 builder.Services.AddScoped<IStructureManager, StructureManager>();
 builder.Services.AddScoped<IOrderManager, OrderManager>();
-builder.Services.AddScoped<IFood_featuresManager, Food_featuresManager>();
 builder.Services.AddScoped<IDeliveryManager, DeliveryManager>();
 builder.Services.AddScoped<IMain_AddressManager, Main_AddressManager>();
 builder.Services.AddScoped<IDishManager, DishManager>();
+builder.Services.AddScoped<IProductManager, ProductManager>();
+
 //cookie
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 {

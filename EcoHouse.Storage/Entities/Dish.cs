@@ -12,7 +12,6 @@
 
         [ForeignKey(nameof(Structure_))]
         public virtual Structure Structure { get; set; }
-
         public int Mass { get; set; }
 
         public int Price { get; set; }
@@ -26,12 +25,21 @@
         public virtual Category Category { get; set; }
 
         [Required]
-
         public string Recipe { get; set; }
 
         [Required]
         public string Link { get; set; }
 
         public string? Text { get; set; }
+
+        public string? Special { get; set; }
+        public int? count { get; set; }
+
+        [Required]
+        public int ProductID { get; set; }
+
+        [ForeignKey(nameof(ProductID))]
+        public virtual Product? Product { get; set; }
+
     }
 }

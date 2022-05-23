@@ -25,6 +25,19 @@ namespace EcoHouse.Storage.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Array_Of_Phones",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Array_Of_Phones", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
                 {
@@ -35,19 +48,6 @@ namespace EcoHouse.Storage.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.CategoryId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Food_Features",
-                columns: table => new
-                {
-                    Food_FeaturesId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Food_Features", x => x.Food_FeaturesId);
                 });
 
             migrationBuilder.CreateTable(
@@ -64,6 +64,20 @@ namespace EcoHouse.Storage.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_main_Addresses", x => x.Address_ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Product_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Link = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Product_ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,7 +131,10 @@ namespace EcoHouse.Storage.Migrations
                     CategoryID = table.Column<int>(type: "int", nullable: false),
                     Recipe = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Link = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Special = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    count = table.Column<int>(type: "int", nullable: true),
+                    ProductID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -127,6 +144,12 @@ namespace EcoHouse.Storage.Migrations
                         column: x => x.CategoryID,
                         principalTable: "Categories",
                         principalColumn: "CategoryId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_dishes_Products_ProductID",
+                        column: x => x.ProductID,
+                        principalTable: "Products",
+                        principalColumn: "Product_ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_dishes_structures_Structure_",
@@ -176,19 +199,14 @@ namespace EcoHouse.Storage.Migrations
                     AddressID = table.Column<int>(type: "int", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Food_Features_ID = table.Column<int>(type: "int", nullable: true),
                     OrdersID = table.Column<int>(type: "int", nullable: true),
                     Login = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Photo = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Users_Food_Features_Food_Features_ID",
-                        column: x => x.Food_Features_ID,
-                        principalTable: "Food_Features",
-                        principalColumn: "Food_FeaturesId");
                     table.ForeignKey(
                         name: "FK_Users_main_Addresses_AddressID",
                         column: x => x.AddressID,
@@ -212,6 +230,11 @@ namespace EcoHouse.Storage.Migrations
                 column: "CategoryID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_dishes_ProductID",
+                table: "dishes",
+                column: "ProductID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_dishes_Structure_",
                 table: "dishes",
                 column: "Structure_");
@@ -232,11 +255,6 @@ namespace EcoHouse.Storage.Migrations
                 column: "AddressID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_Food_Features_ID",
-                table: "Users",
-                column: "Food_Features_ID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Users_OrdersID",
                 table: "Users",
                 column: "OrdersID");
@@ -245,10 +263,10 @@ namespace EcoHouse.Storage.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Array_Of_Phones");
 
             migrationBuilder.DropTable(
-                name: "Food_Features");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "main_Addresses");
@@ -267,6 +285,9 @@ namespace EcoHouse.Storage.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "structures");

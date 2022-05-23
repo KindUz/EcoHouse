@@ -12,8 +12,9 @@ public class UsersController : Controller
 {
     private static IUserManager _manager;
     private readonly ILogger _logger;
-    User CurrentUser;
-    private bool _isUser = false;
+    static User CurrentUser;
+    static private User _user;
+    static private bool _isUser = true;
 
     public UsersController(IUserManager manager, ILogger<AccountController> logger)
     {
@@ -26,47 +27,50 @@ public class UsersController : Controller
     public async Task<IActionResult> SignUp()
     {
         var user = await _manager.GetAll();
-        if (_isUser == true)
+        if (_user == null)
         {
-            ViewBag.isUser = "true";
-        }
-        else
+            return View(user);
+        } else
         {
-            ViewBag.isUser = "false";
+            return RedirectToAction("Personal");
         }
-
-        return View(user);
     }
     public async Task<IActionResult> SignIn()
     {
-        if (_isUser == true)
+        if (_isUser)
         {
             ViewBag.isUser = "true";
-        }
-        else
+        } else
         {
             ViewBag.isUser = "false";
         }
-        return View();
+        if (_user == null)
+        {
+            return View();
+        }
+        else
+        {
+            return RedirectToAction("Personal");
+        }
     }
     public async Task<IActionResult> Personal()
     {
-        if (_isUser == true)
+        ViewBag.User = _user;
+        if (ViewBag.User == null)
         {
-            ViewBag.isUser = "true";
-        }
-        else
+            return RedirectToAction("SignIn");
+        } else
         {
-            ViewBag.isUser = "false";
+            return View();
         }
-        return View();
     }
 
     public IActionResult Logout()
     {
         HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         CurrentUser = null;
-        _isUser = false;
+        _user = null;
+        _isUser = true;
         return RedirectToAction("SignIn");
     }
 
@@ -77,8 +81,9 @@ public class UsersController : Controller
         if ((CurrentUser = _manager.CheckPassAndLog(login, pass)) != null)
         {
             await Authenticate(login);
-            //return RedirectToPage("/Home/Personal");
+            _user = CurrentUser;
             _isUser = true;
+            //return RedirectToPage("/Home/Personal");
             return RedirectToAction("Personal");
         }
         else
@@ -127,7 +132,12 @@ public class UsersController : Controller
 
     [HttpDelete]
     [Route("users/{id}")]
-    public Task Delete(int id) => _manager.Delete(id);
+    public async Task Delete(int id)
+    {
+         await _manager.Delete(id);
+         Logout();
+    }
+
 
     #endregion
 
@@ -142,10 +152,30 @@ public class UsersController : Controller
     //public IActionResult SignUp() => RedirectToPage("/Home/SignUp");
 
     #region Changes
-    public async Task RePassword(string newPassword)
+    public IActionResult RePassword(string oldPassword, string newPassword)
     {
-        await _manager.RePassword(newPassword, CurrentUser.Id);
+        _manager.RePassword(newPassword, oldPassword, CurrentUser.Id);
+        CurrentUser.Password = newPassword;
+        _user = CurrentUser;
+        return RedirectToAction(nameof(Personal));
     }
+
+    public IActionResult ReEmail(string newEmail)
+    {
+        _manager.ReEmail(newEmail, CurrentUser.Id);
+        CurrentUser.Email = newEmail;
+        _user = CurrentUser;
+        return RedirectToAction(nameof(Personal));
+    }
+
+    public IActionResult RePhone(string newPhone)
+    {
+        _manager.RePhone(newPhone, CurrentUser.Id);
+        CurrentUser.Phone = newPhone;
+        _user = CurrentUser;
+        return RedirectToAction(nameof(Personal));
+    }
+
     #endregion
 
 }

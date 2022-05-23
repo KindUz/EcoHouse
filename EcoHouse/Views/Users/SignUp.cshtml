@@ -7,66 +7,52 @@
             <div class="enter__container container">
                <h2 class="enter__title title">Регистрация</h2>
                <div class="content-enter__form">
-                  @*<form class="form sign">*@
                      @using (Html.BeginForm("CreateUser", "Users", FormMethod.Post)){
-                        <textarea name = "Name"></textarea><br />
-                        <textarea name = "LastName"></textarea><br />
-                        <textarea name = "Email"></textarea><br />
-                        <textarea name = "Phone"></textarea><br />
-                        <textarea name = "Login"></textarea><br />
-                        <textarea name = "Password"></textarea><br />
-                    <button type = "submit">Create</button>
-                     @*<div class="name__block form-block">
-                        <h6 class="form-block__title">Ваше имя</h6>
-                        <textarea name = "Name"></textarea>
-                     </div>
-                     <div class="lastname__block form-block">
-                        <h6 class="form-block__title">Ваша фамилия</h6>
-                        <textarea name = "LastName"></textarea>
-                     </div>
-                     <div class="gender__block form-block form-block-gender">
-                        <h6 class="form-block__title">Ваш пол</h6>
-                        <div class="form-block-gender__block">
-                           <input class="custom-radio" name="gender" type="radio" id="male" value="male" checked>
-                           <label for="male">Мужчина</label>
-                        </div>
-                        <div class="form-block-gender__block">
-                           <input class="custom-radio" name="gender" type="radio" id="female" value="female">
-                           <label for="female">Женщина</label>
-                        </div>
-                     </div>
-                     <div class="email__block form-block">
-                        <h6 class="form-block__title">Ваша почта</h6>
-                        <textarea name = "Email"></textarea>
-                     </div>
-                     <div class="phone__block form-block">
-                        <h6 class="form-block__title">Ваш телефон</h6>
-                        <textarea name = "Phone"></textarea>
-                     </div>
-                     <div class="phone__block form-block">
-                        <h6 class="form-block__title">Ваш логин</h6>
-                        <textarea name = "Login"></textarea>
-                     </div>
-                     <div class="pass__block form-block">
-                        <h6 class="form-block__title">Ваш пароль</h6>
-                        <textarea name = "Password"></textarea>
-                     </div>
-                     <div class="passcheck__block form-block">
-                        <h6 class="form-block__title">Подтвердите пароль</h6>
-                        <textarea name = "Password"></textarea>
-                        <div class="pass__error">Пароли не совпадают</div>
-                     </div>
-                     <div class="politic__block form-block">
-                        <input class="custom-checkbox politic-check" type="checkbox" id="politic" name="politic"
-                           value="yes">
-                        <label class="label" for="politic">Я принимаю <a href="#">Политику
-                              конфиденциальности</a></label>
-                     </div>*@
-                    @* <input class="input content-enter__sign" type="submit" value="Зарегистрироваться" name="submit">*@
+                        <textarea name="Name" placeholder="Имя"></textarea>
+                        <textarea name="LastName" placeholder="Фамилия"></textarea>
+                        <textarea name="Email" placeholder="Почта"></textarea>
+                        <textarea name="Phone" placeholder="Телефон"></textarea>
+                        <textarea name="Login" placeholder="Логин"></textarea>
+                        <textarea name="Password" placeholder="Пароль"></textarea>
+                    <button type = "submit">Зарегистрироваться</button>
                      }
-                 @* </form>*@
                </div>
             </div>
          </section>
-         
-         
+
+     @*    @page
+@model IList<EcoHouse.Storage.Entities.User>
+
+@{
+    ViewBag.Title = "Регистрация";
+}
+         <section class="enter start block">
+            <div class="enter__container container">
+               <h2 class="enter__title title">Регистрация</h2>
+               <div class="content-enter__form">
+                     @using (Html.BeginForm("CreateUser", "Users", FormMethod.Post)){
+                     <div class="name__block form-block">
+                        <h6 class="form-block__title">Ваше имя</h6>
+                        <textarea name="Name" placeholder="Имя"></textarea>
+                     </div>
+                     <div class="lastname__block form-block">
+                        <h6 class="form-block__title">Ваша фамилия</h6>
+                        <textarea name="LastName" placeholder="Фамилия"></textarea>
+                     </div>
+                     <div class="email__block form-block">
+                        <h6 class="form-block__title">Ваша почта</h6>
+                        <textarea name="Email" placeholder="Почта"></textarea>
+                     </div>
+                     <div class="phone__block form-block">
+                        <h6 class="form-block__title">Ваш телефон</h6>
+                        <textarea name="Phone" placeholder="Телефон"></textarea>
+                     </div>
+                     <div class="pass__block form-block">
+                        <h6 class="form-block__title">Ваш пароль</h6>
+                        <textarea name="Password" placeholder="Пароль"></textarea>
+                     </div>
+                     <button type="submit">Зарегистрироваться</button>
+                     }
+               </div>
+            </div>
+         </section>*@
