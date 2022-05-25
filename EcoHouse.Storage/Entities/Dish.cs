@@ -41,5 +41,10 @@
         [ForeignKey(nameof(ProductID))]
         public virtual Product? Product { get; set; }
 
+        public int? OrdersID { get; set; }
+
+        [ForeignKey(nameof(OrdersID))]
+        public virtual Order? Order { get; set; }
+
     }
 }

@@ -15,7 +15,7 @@ public class Another_AddressController : Controller
         _manager = manager;
     }
 
-    public async Task<IActionResult> Main()
+    public async Task<IActionResult> Order()
     {
         var address = await _manager.GetAll();
 
@@ -33,7 +33,7 @@ public class Another_AddressController : Controller
     public IActionResult CreateAddres(string Area, string Street, int Number_Of_House, int Number_Of_Apartment)
     {
         _manager.Create(Area, Street, Number_Of_House, Number_Of_Apartment);
-        return RedirectToAction(nameof(Main));
+        return RedirectToAction(nameof(Order));
     }
    
     [HttpDelete]

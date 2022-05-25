@@ -17,21 +17,19 @@ namespace EcoHouse.Storage.Entities
         [Required]
         public int Count { get; set; }
 
-        [Required]
-        public int DishID { get; set; }
+        public int? UserID { get; set; }
 
-        [ForeignKey(nameof(DishID))]
+        [ForeignKey(nameof(UserID))]
 
-        public virtual Dish Dish { get; set; }
+        public virtual User? User { get; set; }
 
         [Required]
         public string Description { get; set; }
         
-        [Required]
-        public int Delivery_ID { get; set; }
+        public int? Address_ID { get; set; }
 
-        [ForeignKey(nameof(Delivery_ID))]
+        [ForeignKey(nameof(Address_ID))]
 
-        public virtual Delivery Delivery { get; set; }
+        public virtual Another_Adresses? Another_Adresses { get; set; }
     }
 }

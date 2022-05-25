@@ -22,19 +22,15 @@
 
         [Required]
         public string Phone { get; set; }
-        public int? OrdersID { get; set; }
-
-        [ForeignKey(nameof(OrdersID))]
-        public virtual Order? Order { get; set; }
-
+       
         [Required]
         public string Login { get; set; }
 
         [Required]
         public string Password { get; set; }
 
-        public string? Photo { get; set; }
-
+        public string? Name_Photo { get; set; }
+        public string? Path { get; set; }
 
     }
 }

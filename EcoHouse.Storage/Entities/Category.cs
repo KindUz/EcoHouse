@@ -11,6 +11,8 @@ namespace EcoHouse.Storage.Entities
         [Key]
         public int CategoryId { get; set; }
 
+        public string? Link { get; set; }
+
         [Required]
         public string Name_Of_Category { get; set; }
 

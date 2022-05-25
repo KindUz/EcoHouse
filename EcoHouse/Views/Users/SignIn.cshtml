@@ -11,7 +11,7 @@
                   <div class="content-enter__form">
                      <form asp-action="SignIn" asp-controller="Users">
                         <input class="login place-form" type="text" name="login" placeholder="Почта">
-                        <input class="pass place-form" type="text" name="pass" placeholder="Пароль">
+                        <input class="pass place-form" type="password" name="pass" placeholder="Пароль">
                     @if (ViewBag.isUser == "false")
                     {
                         <div class="form__empty pass-error">Неправильная почта или пароль</div>

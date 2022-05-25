@@ -1,9 +1,11 @@
 ﻿using EcoHouse.Storage;
 
+
 namespace EcoHouse.Logic.Dishes;
 public class DishManager : IDishManager
 {
     private readonly UniversityContext _context;
+
     public DishManager(UniversityContext context)
     {
         _context = context;
@@ -29,5 +31,34 @@ public class DishManager : IDishManager
 
             await _context.SaveChangesAsync();
         }
+    }
+
+    public async Task Add(int ID, int OrderId)
+    {
+        var dish = _context.dishes.FirstOrDefault(g => g.Dish_ID == ID);
+        if (dish.count != null)
+        {
+            dish.count++;
+        }
+        else
+        {
+            dish.count = 1;
+        }
+        dish.OrdersID = OrderId;
+        await _context.SaveChangesAsync();
+    }
+    public async Task AntiAdd(int ID)
+    {
+        var dish = _context.dishes.FirstOrDefault(g => g.Dish_ID == ID);
+
+        if(dish.count == 1)
+        {
+            dish.OrdersID = null;
+            dish.count = null;
+        }
+        else
+            dish.count--;
+
+        await _context.SaveChangesAsync();
     }
 }

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="~/css/style.min.css" asp-append-version="true" />
     <link rel="icon" href="~/img/logo/favicon.png" type="image/png">
 </head>
-<body>
+<body style="overflow-x: hidden">
    <div class="wrapper">
     <header id="header" class="header lock-padding">
    <div class="header__container container">
@@ -48,11 +48,18 @@
                </div>
             </div>
             <div class="menu-header__small-button">
-               <a asp-area="" asp-controller="Home" asp-action="Basket" class="menu-header__bag icon-bag icon"><span
-                     class="bag-count">4</span><span>Корзина</span></a>
+               <a asp-area="" asp-controller="Home" asp-action="Basket" class="menu-header__bag icon-bag icon">
+                                @if (ViewBag.User != null)
+                                {
+                                     <span class="bag-count">@ViewBag.Orders[0].Count</span>
+                                } else
+                                {
+                                     <span class="bag-count">0</span>
+                                }
+                                <span>Корзина</span></a>
                      @if (ViewBag.isUser == "true")
                      {
-                         <a asp-area="" asp-controller="Home" asp-action="Personal" class="menu-header__user">CCC</a>
+                     <a asp-area="" asp-controller="Users" asp-action="Personal" class="menu-header__user icon-user icon"><span>Личный кабинет</span></a>
                      } 
                      else 
                      {
@@ -82,9 +89,6 @@
 </header>
       <main class="main">
     @RenderBody()
-            <div class="sale__block sale-change">Изменено</div>
-            <div class="sale__block sale-add">Добавлено</div>
-            <div class="sale__block sale-remove">Удалено</div>
       </main>
     <footer class="footer">
    <div class="footer__container container">
@@ -113,7 +117,7 @@
          <div class="footer__form">
             <form class="form sign-news">
                <input class="email place-form" type="text" name="email" placeholder="Email">
-               <input class="input" type="submit" value="Подписаться" name="submit">
+               <input class="input send" type="submit" value="Подписаться" name="submit">
                <input class="custom-checkbox politic-check" type="checkbox" id="politic-footer" name="politic"
                   value="yes">
                <label class="label" for="politic-footer">Я принимаю <a href="#">Политику конфиденциальности</a></label>

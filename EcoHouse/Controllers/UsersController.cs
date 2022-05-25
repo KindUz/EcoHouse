@@ -6,29 +6,41 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
+using EcoHouse.Logic.Orders;
+using EcoHouse.Logic.Dishes;
+using EcoHouse.Logic.Main_Addresses;
 
 namespace EcoHouse.Controllers;
 public class UsersController : Controller
 {
-    private static IUserManager _manager;
+    private static IMain_AddressManager _managerAddress;
+    private IWebHostEnvironment _env;
+    private static IDishManager _managerDish;
+    private static IUserManager _managerUser;
+    private static IOrderManager _managerOrder;
     private readonly ILogger _logger;
-    static User CurrentUser;
+    static internal User CurrentUser;
     static private User _user;
     static private bool _isUser = true;
 
-    public UsersController(IUserManager manager, ILogger<AccountController> logger)
+    public UsersController(IUserManager managerUser, IOrderManager managerOrder, ILogger<AccountController> logger, IDishManager managerDish, IWebHostEnvironment? env, IMain_AddressManager managerAddress)
     {
-        _manager = manager;
+        _managerAddress = managerAddress;
+        _env = env;
+        _managerUser = managerUser;
+        _managerOrder = managerOrder;
         _logger = logger;
+        _managerDish = managerDish;
     }
 
     #region Auth
 
     public async Task<IActionResult> SignUp()
     {
-        var user = await _manager.GetAll();
+        var user = await _managerUser.GetAll();
         if (_user == null)
         {
+            ViewBag.Orders = await _managerOrder.GetAll();
             return View(user);
         } else
         {
@@ -46,6 +58,7 @@ public class UsersController : Controller
         }
         if (_user == null)
         {
+            ViewBag.Orders = await _managerOrder.GetAll();
             return View();
         }
         else
@@ -61,6 +74,8 @@ public class UsersController : Controller
             return RedirectToAction("SignIn");
         } else
         {
+            ViewBag.Orders = await _managerOrder.GetAll();
+            ViewBag.Address = await _managerAddress.GetAll();
             return View();
         }
     }
@@ -68,9 +83,11 @@ public class UsersController : Controller
     public IActionResult Logout()
     {
         HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        _managerOrder.Delete(CurrentUser.Id);
         CurrentUser = null;
         _user = null;
         _isUser = true;
+
         return RedirectToAction("SignIn");
     }
 
@@ -78,11 +95,22 @@ public class UsersController : Controller
     [HttpPost]
     public async Task<IActionResult> SignIn(string login, string pass)
     {
-        if ((CurrentUser = _manager.CheckPassAndLog(login, pass)) != null)
+        if ((CurrentUser = _managerUser.CheckPassAndLog(login, pass)) != null)
         {
             await Authenticate(login);
+
+            var dishes = await _managerDish.GetAll();
+            foreach (var dish in dishes)
+            {
+                dish.count = null;
+                dish.OrdersID = null;
+            }
+
             _user = CurrentUser;
             _isUser = true;
+            await _managerOrder.CHTOBI_NE_BILO_TIMEOUTA();
+            await _managerOrder.CreateByUser(CurrentUser.Id);
+
             //return RedirectToPage("/Home/Personal");
             return RedirectToAction("Personal");
         }
@@ -106,35 +134,35 @@ public class UsersController : Controller
 
     #endregion
 
-    //public async Task<IActionResult> Main()
-    //{
-    //    var user = await _manager.GetAll();
-
-    //    return View(user);
-    //}
-
     #region Base
 
     [HttpGet]
     [Route("users")]
-    public async Task<IList<User>> GetAll() => await _manager.GetAll();
+    public async Task<IList<User>> GetAll() => await _managerUser.GetAll();
 
     [HttpPost]
     public IActionResult CreateUser(string Name, string LastName, string Email, string Phone, string Login, string Password)
     {
-        _manager.Create(Name, LastName, Email, Phone, Login, Password);
-        return RedirectToAction(nameof(SignUp));
+        if (Name != null && LastName != null && Email != null && Phone != null && Login != null && Password != null)
+        {
+            _managerUser.Create(Name, LastName, Email, Phone, Login, Password);
+            return RedirectToAction(nameof(SignIn));
+        } else
+        {
+            ViewBag.isError = "false";
+            return RedirectToAction(nameof(SignUp));
+        }
     }
 
     [HttpPut]
     [Route("users")]
-    public Task Create([FromBody] CreateUserRequest request) => _manager.Create(request.Name, request.LastName, request.Email, request.Phone, request.Login, request.Password);
+    public Task Create([FromBody] CreateUserRequest request) => _managerUser.Create(request.Name, request.LastName, request.Email, request.Phone, request.Login, request.Password);
 
     [HttpDelete]
     [Route("users/{id}")]
     public async Task Delete(int id)
     {
-         await _manager.Delete(id);
+         await _managerUser.Delete(id);
          Logout();
     }
 
@@ -154,7 +182,7 @@ public class UsersController : Controller
     #region Changes
     public IActionResult RePassword(string oldPassword, string newPassword)
     {
-        _manager.RePassword(newPassword, oldPassword, CurrentUser.Id);
+        _managerUser.RePassword(newPassword, oldPassword, CurrentUser.Id);
         CurrentUser.Password = newPassword;
         _user = CurrentUser;
         return RedirectToAction(nameof(Personal));
@@ -162,7 +190,7 @@ public class UsersController : Controller
 
     public IActionResult ReEmail(string newEmail)
     {
-        _manager.ReEmail(newEmail, CurrentUser.Id);
+        _managerUser.ReEmail(newEmail, CurrentUser.Id);
         CurrentUser.Email = newEmail;
         _user = CurrentUser;
         return RedirectToAction(nameof(Personal));
@@ -170,12 +198,45 @@ public class UsersController : Controller
 
     public IActionResult RePhone(string newPhone)
     {
-        _manager.RePhone(newPhone, CurrentUser.Id);
+        _managerUser.RePhone(newPhone, CurrentUser.Id);
         CurrentUser.Phone = newPhone;
         _user = CurrentUser;
         return RedirectToAction(nameof(Personal));
     }
 
+    [HttpPost]
+    public async Task<ActionResult> AddFile(IFormFile newPhoto)
+    {
+        if (newPhoto != null)
+        {
+            string path = "/Files/avatars/" + newPhoto.FileName;
+            using (var fs = new FileStream(_env.WebRootPath + path, FileMode.Create))
+            {
+                await newPhoto.CopyToAsync(fs);
+            }
+
+            await _managerUser.RePhoto(newPhoto.FileName, path, CurrentUser.Id);
+            CurrentUser.Name_Photo = newPhoto.FileName;
+            CurrentUser.Path = path;
+            _user = CurrentUser;
+        }
+
+        return RedirectToAction(nameof(Personal));
+    }
+
+    public IActionResult AddAddress(string area, string street, int number_of_house, int number_of_apartment)
+    {
+        _managerAddress.Create(area, street, number_of_house, number_of_apartment);
+        _managerUser.ADRES(_managerAddress.Return(area, street, number_of_house, number_of_apartment), CurrentUser.Id);
+        _user = CurrentUser;
+        return RedirectToAction(nameof(Personal));
+    }
+
+    public IActionResult ReAddress(string area, string street, int number_of_house, int number_of_apartment)
+    {
+        _managerAddress.Re(area, street, number_of_house, number_of_apartment, CurrentUser.AddressID);
+        return RedirectToAction(nameof(Personal));
+    }
     #endregion
 
 }

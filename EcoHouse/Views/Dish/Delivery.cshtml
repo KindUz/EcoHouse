@@ -30,9 +30,27 @@
                         <div class="about-content-item__list">Содержит: @dish.Structure.Ingredients</div>
                      </div>
                      <div class="item-delivery__price">@dish.Price ₽</div>
-                     <a href="#" class="control-item__button buy button-default">
-                        <picture><source srcset="/img/icons/scooter.webp" type="image/webp"><img src="/img/icons/scooter.png" alt="scooter"></picture>Заказать
-                     </a>
+                     @if (dish.count == 0 || dish.count == null)
+                                {
+                        <div class="animation-block button">
+                                <a href="@Url.Action("Add", "Dish", new { id = dish.Dish_ID, price = dish.Price })" class="control-item__button buy button-default">
+                                <img class="scooter" src="/img/icons/scooter.png" alt="scooter">
+                                <span class="text">Заказать</span>
+                                <span class="icon-spoon"></span>
+                                    </a>
+                            </div>
+                                } else
+                                {
+                        <div class="animation-block control" style="margin: 0 auto; padding: 20px 0;">
+                                <div class="button-default no block-count">
+                                 <div class="control-item-slider control-count">
+                                    <input value="−" type="button" class="control-item-slider__button sub" onclick="location.href='@Url.Action("AntiAdd", "Dish", new { id = dish.Dish_ID, price = dish.Price })'" />
+                                    <span class="control-item-slider__count count">@dish.count</span>
+                                    <input value="+" type="button" class="control-item-slider__button inc" onclick="location.href='@Url.Action("Add", "Dish", new { id = dish.Dish_ID, price = dish.Price })'" />
+                                </div>
+                            </div>
+                            </div>
+                                }
                         </div>
                     } else
                     {

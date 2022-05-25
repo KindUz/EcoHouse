@@ -1,26 +1,4 @@
-﻿@model IList<EcoHouse.Storage.Entities.User>
-
-@{
-    ViewData["Title"] = "Регистрация";
-}
-         <section class="enter start block">
-            <div class="enter__container container">
-               <h2 class="enter__title title">Регистрация</h2>
-               <div class="content-enter__form">
-                     @using (Html.BeginForm("CreateUser", "Users", FormMethod.Post)){
-                        <textarea name="Name" placeholder="Имя"></textarea>
-                        <textarea name="LastName" placeholder="Фамилия"></textarea>
-                        <textarea name="Email" placeholder="Почта"></textarea>
-                        <textarea name="Phone" placeholder="Телефон"></textarea>
-                        <textarea name="Login" placeholder="Логин"></textarea>
-                        <textarea name="Password" placeholder="Пароль"></textarea>
-                    <button type = "submit">Зарегистрироваться</button>
-                     }
-               </div>
-            </div>
-         </section>
-
-     @*    @page
+﻿@page
 @model IList<EcoHouse.Storage.Entities.User>
 
 @{
@@ -31,28 +9,14 @@
                <h2 class="enter__title title">Регистрация</h2>
                <div class="content-enter__form">
                      @using (Html.BeginForm("CreateUser", "Users", FormMethod.Post)){
-                     <div class="name__block form-block">
-                        <h6 class="form-block__title">Ваше имя</h6>
-                        <textarea name="Name" placeholder="Имя"></textarea>
-                     </div>
-                     <div class="lastname__block form-block">
-                        <h6 class="form-block__title">Ваша фамилия</h6>
-                        <textarea name="LastName" placeholder="Фамилия"></textarea>
-                     </div>
-                     <div class="email__block form-block">
-                        <h6 class="form-block__title">Ваша почта</h6>
-                        <textarea name="Email" placeholder="Почта"></textarea>
-                     </div>
-                     <div class="phone__block form-block">
-                        <h6 class="form-block__title">Ваш телефон</h6>
-                        <textarea name="Phone" placeholder="Телефон"></textarea>
-                     </div>
-                     <div class="pass__block form-block">
-                        <h6 class="form-block__title">Ваш пароль</h6>
-                        <textarea name="Password" placeholder="Пароль"></textarea>
-                     </div>
-                     <button type="submit">Зарегистрироваться</button>
+                        <input name="Name" placeholder="Имя" />
+                        <input name="LastName" placeholder="Фамилия" />
+                        <input name="Email" placeholder="Почта" />
+                        <input class="phone" name="Phone" placeholder="Телефон" />
+                        <input name="Login" placeholder="Логин" />
+                        <input name="Password" type="password" placeholder="Пароль" />
+                        <button type = "submit">Зарегистрироваться</button>
                      }
                </div>
             </div>
-         </section>*@
+         </section>

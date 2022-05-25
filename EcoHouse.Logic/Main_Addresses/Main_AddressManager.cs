@@ -27,4 +27,28 @@ public class Main_AddressManager : IMain_AddressManager
             await _context.SaveChangesAsync();
         }
     }
+
+    public async Task Re(string area, string street, int number_of_house, int number_of_apartment, int? Id)
+    {
+        var main_address = _context.main_Addresses.FirstOrDefault(g => g.Address_ID == Id);
+        if (main_address != null)
+        {
+            main_address.Area = area;
+            main_address.Street = street;
+            main_address.Number_Of_House = number_of_house;
+            main_address.Number_Of_Apartment = number_of_apartment;
+            await _context.SaveChangesAsync();
+        }
+    }
+
+    public int Return(string area, string street, int number_of_house, int number_of_apartment)
+    {
+        var main_address = _context.main_Addresses.FirstOrDefault(g => g.Area == area && g.Street == street && g.Number_Of_House == number_of_house && g.Number_Of_Apartment == number_of_apartment);
+        if (main_address != null)
+        {
+            return main_address.Address_ID;
+        }
+        else
+            return 0;
+    }
 }

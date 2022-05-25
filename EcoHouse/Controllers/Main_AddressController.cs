@@ -14,6 +14,13 @@ namespace EcoHouse.Controllers
             _manager = manager;
         }
 
+        public async Task<IActionResult> Personal()
+        {
+            var address = await _manager.GetAll();
+
+            return View(address);
+        }
+
         [HttpGet]
         [Route("main_address")]
         public async Task<IList<Main_Address>> GetAll() => await _manager.GetAll();
@@ -25,6 +32,7 @@ namespace EcoHouse.Controllers
         [HttpDelete]
         [Route("main_address/{id}")]
         public Task Delete(int id) => _manager.Delete(id);
+
 
         //public async Task<IActionResult> Main()
         //{

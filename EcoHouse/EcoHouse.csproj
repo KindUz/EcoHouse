@@ -14,6 +14,67 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\img\content\apple.webp" />
+    <None Include="wwwroot\img\content\broccoli.webp" />
+    <None Include="wwwroot\img\content\carrot.webp" />
+    <None Include="wwwroot\img\content\chicken.webp" />
+    <None Include="wwwroot\img\content\chocolate.webp" />
+    <None Include="wwwroot\img\content\curd.webp" />
+    <None Include="wwwroot\img\content\dessert.webp" />
+    <None Include="wwwroot\img\content\egg.webp" />
+    <None Include="wwwroot\img\content\first-dish.webp" />
+    <None Include="wwwroot\img\content\salad.webp" />
+    <None Include="wwwroot\img\content\second-dish.webp" />
+    <None Include="wwwroot\img\delivery\bag1.webp" />
+    <None Include="wwwroot\img\dish\food1.webp" />
+    <None Include="wwwroot\img\dish\food2.webp" />
+    <None Include="wwwroot\img\dish\food3.webp" />
+    <None Include="wwwroot\img\dish\food4.webp" />
+    <None Include="wwwroot\img\empty-plate.webp" />
+    <None Include="wwwroot\img\form\check.webp" />
+    <None Include="wwwroot\img\form\radio.webp" />
+    <None Include="wwwroot\img\icons\arrow-left.webp" />
+    <None Include="wwwroot\img\icons\arrow-right.webp" />
+    <None Include="wwwroot\img\icons\arrow.webp" />
+    <None Include="wwwroot\img\icons\bag.webp" />
+    <None Include="wwwroot\img\icons\big-search.webp" />
+    <None Include="wwwroot\img\icons\calculator.webp" />
+    <None Include="wwwroot\img\icons\carbohydrates.webp" />
+    <None Include="wwwroot\img\icons\city.webp" />
+    <None Include="wwwroot\img\icons\close.webp" />
+    <None Include="wwwroot\img\icons\error.webp" />
+    <None Include="wwwroot\img\icons\exit.webp" />
+    <None Include="wwwroot\img\icons\fats.webp" />
+    <None Include="wwwroot\img\icons\fork.svg" />
+    <None Include="wwwroot\img\icons\home.webp" />
+    <None Include="wwwroot\img\icons\kcal.webp" />
+    <None Include="wwwroot\img\icons\like-active.webp" />
+    <None Include="wwwroot\img\icons\like.webp" />
+    <None Include="wwwroot\img\icons\menu.webp" />
+    <None Include="wwwroot\img\icons\more.webp" />
+    <None Include="wwwroot\img\icons\no.webp" />
+    <None Include="wwwroot\img\icons\phone-white.webp" />
+    <None Include="wwwroot\img\icons\phone.webp" />
+    <None Include="wwwroot\img\icons\proteins.webp" />
+    <None Include="wwwroot\img\icons\scooter.webp" />
+    <None Include="wwwroot\img\icons\small-search.webp" />
+    <None Include="wwwroot\img\icons\telegram.webp" />
+    <None Include="wwwroot\img\icons\user.webp" />
+    <None Include="wwwroot\img\icons\vk.webp" />
+    <None Include="wwwroot\img\icons\yes.svg" />
+    <None Include="wwwroot\img\icons\yes.webp" />
+    <None Include="wwwroot\img\logo\favicon.webp" />
+    <None Include="wwwroot\img\logo\logo.webp" />
+    <None Include="wwwroot\img\map\map-work.webp" />
+    <None Include="wwwroot\img\pay\mastercard.webp" />
+    <None Include="wwwroot\img\pay\union.webp" />
+    <None Include="wwwroot\img\pay\visa.webp" />
+    <None Include="wwwroot\img\pay\world.webp" />
+    <None Include="wwwroot\img\sign\news.webp" />
+    <None Include="wwwroot\img\user\user1.webp" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Korzh.EasyQuery.Linq" Version="7.2.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.4">
       <PrivateAssets>all</PrivateAssets>
@@ -24,6 +85,11 @@
   <ItemGroup>
     <ProjectReference Include="..\EcoHouse.Logic\EcoHouse.Logic.csproj" />
     <ProjectReference Include="..\EcoHouse.Storage\EcoHouse.Storage.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\files\avatars\" />
+    <Folder Include="wwwroot\Новая папка\" />
   </ItemGroup>
 
 </Project>

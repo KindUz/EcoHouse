@@ -1,5 +1,6 @@
-﻿@{
-    ViewData["Title"] = "Меню";
+﻿@page
+@{
+    ViewBag.Title = "Меню";
 }
 
          <section class="menu start block margin">
@@ -7,48 +8,78 @@
                <div class="menu__head head-menu">
                   <h2 class="head-menu__title title">Вы выбрали</h2>
                   <div class="content-choice__item item-choice">
-                     <div class="item-choice__image">
-                        <picture><source srcset="/img/content/curd.webp" type="image/webp"><img src="/img/content/curd.png" alt="image"></picture>
+                @if (ViewBag.Products != null)
+                {
+                @foreach(var product in ViewBag.Products)
+                {
+                    @if (product.Product_ID == ViewBag.ProductID)
+                    {
+                    <div class="item-choice__image">
+                         <img src = "@product.Link" alt="image">
                      </div>
-                     <div class="item-choice__text">Творог</div>
+                     <div class="item-choice__text">@product.Name</div>
+                    }
+                }
+                }
                   </div>
                </div>
                <div class="menu__content content-menu">
-            @for (var index = 1; index < 8; index++)
+            @if (ViewBag.Products != null && ViewBag.Dishes != null)
             {
+            @foreach(var dish in ViewBag.Dishes)
+                {
+                @if (dish.ProductID == ViewBag.ProductID)
+                {
                   <div class="content-menu__item item-menu">
                      <div class="item-menu__image">
-                        <picture><source srcset="/img/dish/food3.webp" type="image/webp"><img src="/img/dish/food3.png" alt="food"></picture>
+                        <img src="@dish.Link" alt="food">
                      </div>
                      <div class="item-menu__about about-menu-item">
-                        <h3 class="about-menu-item__title">Салат с брокколи и цветной капусты</h3>
+                        <h3 class="about-menu-item__title">@dish.Name</h3>
                         <div class="about-menu-item__content content-item">
-                           <div class="content-item__desc">Полезный и вкусный салат из брокколи и цветной капусты,
-                              сваренных на пару, разнообразит завтрак и отлично дополнит обед или ужин.</div>
+                           <div class="content-item__desc">@dish.Description</div>
                            <div class="content-item__about about-content-item">
                               <h3 class="about-content-item__title">О блюде:</h3>
-                              <div class="about-content-item__kcal">48 ккал/100 г</div>
+                              <div class="about-content-item__kcal">@dish.Structure.Calorific ккал/100 г</div>
                               <div class="about-content-item__menu">
                                  <picture><source srcset="/img/icons/menu.webp" type="image/webp"><img src="/img/icons/menu.png" alt="menu"></picture>
                                  <ul class="about-content-item__list">
-                                        @for (var product = 1; product < 8; product++)
-                                        {
-                                        <li>Брокколи</li>
-                                        }
+                                     @foreach (var ingredient in dish.Structure.Ingredients.Split('|'))
+                                     {
+                                         <li>@ingredient.Substring(0, 1).ToUpper()@ingredient.Substring(1, ingredient.Length - 1).ToLower()</li>
+                                     }
                                  </ul>
                               </div>
                            </div>
                         </div>
                         <div class="about-menu-item__control control-item">
-                           <a asp-area="" asp-controller="Home" asp-action="Dish" class="control-item__button button-default">Рецепт<span
-                                 class="icon-fork"></span></a>
-                           <a href="#" class="control-item__button buy button-default">
-                              <picture><source srcset="/img/icons/scooter.webp" type="image/webp"><img src="/img/icons/scooter.png" alt="scooter"></picture>Заказать
-                              <span class="icon-spoon"></span>
-                           </a>
+                                 <a href="@Url.Action("SaveDish", "Dish", new { dish = dish.Dish_ID })" class="control-item__button button-default">Рецепт<span class="icon-fork"></span></a>
+                                 @if (dish.count == 0 || dish.count == null)
+                                {
+                        <div class="animation-block button">
+                                <a href="@Url.Action("Add", "Dish", new { id = dish.Dish_ID, price = dish.Price })" class="control-item__button buy button-default">
+                                <img class="scooter" src="/img/icons/scooter.png" alt="scooter">
+                                <span class="text">Заказать</span>
+                                <span class="icon-spoon"></span>
+                                    </a>
+                            </div>
+                                } else
+                                {
+                        <div class="animation-block control">
+                                <div class="button-default no block-count">
+                                 <div class="control-item-slider control-count">
+                                    <input value="−" type="button" class="control-item-slider__button sub" onclick="location.href='@Url.Action("AntiAdd", "Dish", new { id = dish.Dish_ID, price = dish.Price })'" />
+                                    <span class="control-item-slider__count count">@dish.count</span>
+                                    <input value="+" type="button" class="control-item-slider__button inc" onclick="location.href='@Url.Action("Add", "Dish", new { id = dish.Dish_ID, price = dish.Price })'" />
+                                </div>
+                            </div>
+                            </div>
+                                }
                         </div>
                      </div>
                   </div>
+                }
+            }
             }
                </div>
             </div>

@@ -1,4 +1,6 @@
-﻿namespace EcoHouse.Logic.Users;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace EcoHouse.Logic.Users;
 public interface IUserManager
 {
     Task<IList<User>> GetAll();
@@ -11,5 +13,6 @@ public interface IUserManager
     Task RePassword(string password, string OldPassword, int Id);
     Task ReEmail(string email, int Id);
     Task RePhone(string phone, int Id);
-
+    Task RePhoto(string newPhoto_name, string path, int Id);
+    Task ADRES(int Aid, int Id);
 }

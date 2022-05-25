@@ -19,9 +19,12 @@ public class OrderController : Controller
 
     [HttpPut]
     [Route("order")]
-    public Task Create([FromBody] CreateOrderRequest request) => _manager.Create(request.Price, request.Count, request.DishID, request.Description, request.Delivery_ID);
+    public Task Create([FromBody] CreateOrderRequest request) => _manager.Create();
+
+
+
 
     [HttpDelete]
     [Route("order/{id}")]
-    public Task Delete(int id) => _manager.Delete(id);
+    public Task Delete(int id) => _manager.Delete(id); 
 }

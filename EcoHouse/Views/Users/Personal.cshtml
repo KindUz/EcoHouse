@@ -1,7 +1,8 @@
 ﻿@page
-@model IList<EcoHouse.Storage.Entities.User>
+@model EcoHouse.Controllers.UsersController
 @{
     ViewBag.Title = "Личный кабинет";
+    var point = "•";
 }
 
 <section class="personal start block">
@@ -9,12 +10,18 @@
                <div class="personal__content content-personal">
                   <div class="content-personal__about about-personal">
                      <div class="about-personal__image">
-                        <img src="/img/user/user1.jpg" alt="user">
-                     </div>
+                    @if (ViewBag.User.Path == null)
+                    {
+                        <img src="/img/user/user-no.png" alt="user">
+                    } else
+                    {
+                        <img src="@ViewBag.User.Path" alt="user">
+                    }
+                </div>
                      <div class="about-personal__update">
                         <a href="#popup-form-image" class="popup-link icon-update">Обновить фотографию</a>
                      </div>
-                     <div class="about-personal__name">@ViewBag.User.Name @ViewBag.User.LastName</div>
+                     <div class="about-personal__name">@ViewBag.User.Name @ViewBag.User.LastName <span>Логин: @ViewBag.User.Login</span></div>
                   </div>
                   <div class="content-personal__info info-personal">
                      <div class="info-personal__name">Ваша почта</div>
@@ -26,23 +33,30 @@
                      <div class="info-personal__button"><a class="popup-link" href="#popup-form-phone">Изменить</a>
                      </div>
                      <div class="info-personal__name">Ваш пароль</div>
-                     <div class="info-personal__content place-pass">@ViewBag.User.Password</div>
+                     <div class="info-personal__content place-pass">
+                         @for (var i = 0; i < ViewBag.User.Password.Length; i++)
+                         {
+                             @point
+                         }
+                     </div>
                      <div class="info-personal__button"><a class="popup-link" href="#popup-form-pass">Изменить</a></div>
                   </div>
-                  <h3 class="peculiarities-personal__title">Мои адреса</h3>
-            @if (ViewBag.User.Main_Address != null)
+                  <h3 class="peculiarities-personal__title">Мой адрес</h3>
+            @if (ViewBag.Address != null)
             {
-            <div class="content-personal__info info-personal address">
-                     <div class="info-personal__content">г. @ViewBag.User.Main_Address.Area, ул. @ViewBag.User.Main_Address.Street, дом @ViewBag.User.Main_Address.Number_Of_House, кв. @ViewBag.User.Main_Address.Number_Of_Apartment</div>
+                @foreach (var address in ViewBag.Address)
+                {
+                    @if (address.Address_ID == ViewBag.User.AddressID)
+                    {
+                        <div class="content-personal__info info-personal address">
+                     <div class="info-personal__content">г. @address.Area, ул. @address.Street, дом @address.Number_Of_House, кв. @address.Number_Of_Apartment</div>
                      <div class="info-personal__button"><a class="popup-link remove-popup"
-                           href="#popup-form-change">Изменить</a><button
-                           class="control-item__remove remove-button">Удалить</button></div>
+                           href="#popup-form-change">Изменить</a></div>
                 </div>
+                    }
+                }
             } else
             {
-            <div class="content-personal__info info-personal address">
-                     <div class="info-personal__content">Пусто</div>
-                </div>
                   <a href="#popup-form-add" class="info-personal__add icon-more popup-link">Добавить адрес</a>
             }
                </div>
@@ -56,17 +70,15 @@
                      <a href="#" class="popup__close close-popup icon-close"></a>
                      <h2 class="content-form-popup__title">Изменение фотографии</h2>
                      <div class="content-popup__form">
-                        <form class="form personal download">
-                           <div class="personal__image"></div>
-                           <div class="input__wrapper">
-                              <input name="file" type="file" name="file" id="input__file" class="input input__file"
-                                 accept="image/*">
+                         <form asp-action="AddFile" asp-controller="Users" method="post" enctype="multipart/form-data" class="download"> 
+                             <div class="input__wrapper">
+                             <input type="file" name="newPhoto" id="input__file" class="input input__file" accept="image/*" />
                               <label for="input__file" class="input__file-button">
                                  <span class="input__file-button-text">Загрузить</span>
                               </label>
                            </div>
                            <input class="input" type="submit" value="Сохранить" name="submit">
-                        </form>
+                         </form>
                      </div>
                   </div>
                </div>
@@ -105,7 +117,7 @@
                <div class="popup__body">
                   <div class="popup__content content-popup">
                      <a href="#" class="popup__close close-popup icon-close"></a>
-                     <h2 class="content-form-popup__title">Старый пароль</h2>
+                     <h2 class="content-form-popup__title">Новый пароль</h2>
                      <div class="content-popup__form">
                     @using (Html.BeginForm("RePassword", "Users", FormMethod.Post))
                         {
@@ -123,27 +135,27 @@
                      <a href="#" class="popup__close close-popup icon-close"></a>
                      <h2 class="content-form-popup__title">Добавление адреса</h2>
                      <div class="content-popup__form">
-                        <form class="form personal address add">
+                    @using (Html.BeginForm("AddAddress", "Users", FormMethod.Post)) {
                            <div class="city__block form-block">
                               <h6 class="form-block__title">Город</h6>
-                              <input class="city place-form form-address" type="text" name="city" placeholder="Город">
+                              <input class="city place-form form-address" type="text" name="area" placeholder="Город">
                            </div>
                            <div class="address__block form-block">
                               <h6 class="form-block__title">Улица</h6>
-                              <input class="address place-form form-address" type="text" name="address"
+                              <input class="address place-form form-address" type="text" name="street"
                                  placeholder="Улица">
                            </div>
                            <div class="home__block form-block">
                               <h6 class="form-block__title">Дом</h6>
-                              <input class="home place-form form-address" type="text" name="home" placeholder="Дом">
+                              <input class="home place-form form-address" type="text" name="number_of_house" placeholder="Дом">
                            </div>
                            <div class="flat__block form-block">
                               <h6 class="form-block__title">Квартира/Офис</h6>
-                              <input class="flat place-form form-address" type="text" name="flat"
+                              <input class="flat place-form form-address" type="text" name="number_of_apartment"
                                  placeholder="Квартира/Офис">
                            </div>
                            <input class="input" type="submit" value="Сохранить" name="submit">
-                        </form>
+                        }
                      </div>
                   </div>
                </div>
@@ -154,27 +166,27 @@
                      <a href="#" class="popup__close close-popup icon-close"></a>
                      <h2 class="content-form-popup__title">Изменение адреса</h2>
                      <div class="content-popup__form">
-                        <form class="form personal address change">
+                    @using (Html.BeginForm("ReAddress", "Users", FormMethod.Post)) {
                            <div class="city__block form-block">
                               <h6 class="form-block__title">Город</h6>
-                              <input class="city place-form form-address" type="text" name="city" placeholder="Город">
+                              <input class="city place-form form-address" type="text" name="area" placeholder="Город">
                            </div>
                            <div class="address__block form-block">
                               <h6 class="form-block__title">Улица</h6>
-                              <input class="address place-form form-address" type="text" name="address"
+                              <input class="address place-form form-address" type="text" name="street"
                                  placeholder="Улица">
                            </div>
                            <div class="home__block form-block">
                               <h6 class="form-block__title">Дом</h6>
-                              <input class="home place-form form-address" type="text" name="home" placeholder="Дом">
+                              <input class="home place-form form-address" type="text" name="number_of_house" placeholder="Дом">
                            </div>
                            <div class="flat__block form-block">
                               <h6 class="form-block__title">Квартира/Офис</h6>
-                              <input class="flat place-form form-address" type="text" name="flat"
+                              <input class="flat place-form form-address" type="text" name="number_of_apartment"
                                  placeholder="Квартира/Офис">
                            </div>
                            <input class="input" type="submit" value="Сохранить" name="submit">
-                        </form>
+                        }
                      </div>
                   </div>
                </div>

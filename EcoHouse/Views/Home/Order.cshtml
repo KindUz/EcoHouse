@@ -1,5 +1,6 @@
-﻿@{
-    ViewData["Title"] = "Оформление";
+﻿@page
+@{
+    ViewBag.TItle = "Оформление";
 }
 
          <section class="buy start block">
@@ -8,7 +9,7 @@
                <div class="buy__content content-buy">
                   <div class="content-buy__price all-registration-content">
                      <div class="all-registration-content__name">Стоимость</div>
-                     <div class="all-registration-content__count all-price">1069 ₽</div>
+                     <div class="all-registration-content__count all-price">@ViewBag.Orders[0].Price ₽</div>
                   </div>
                   <div class="content-buy__block block-buy">
                      <form class="form registration address">
@@ -68,9 +69,16 @@
                      <a href="#" class="popup__close close-popup icon-close"></a>
                      <h2 class="content-form-popup__title">Мои адреса</h2>
                      <ul class="content-popup__list">
-            @for (var index = 1; index < 4; index++) {
-                        <li class="address-link fill">г. Москва, ул. Арбат, дом @index, кв. @index@index</li>
-            }
+                    @if (ViewBag.Address != null)
+                    {
+                        @foreach (var address in ViewBag.Address)
+                {
+                    @if (address.Address_ID == ViewBag.User.AddressID)
+                    {
+                        <li class="address-link fill">г. @address.Area, ул. @address.Street, дом @address.Number_Of_House, кв. @address.Number_Of_Apartment</li>
+                    }
+                }
+                    }
                      </ul>
                   </div>
                </div>

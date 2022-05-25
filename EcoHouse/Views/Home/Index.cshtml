@@ -1,1 +1,122 @@
-﻿
+﻿@page
+@model EcoHouse.Controllers.DishController
+@{
+    ViewBag.Title = "EcoHouse";
+    var count = 0;
+    var empty = 0;
+}
+
+         <section class="sale start block">
+            <div class="sale__container container">
+               <div class="sale__head head-sale">
+                  <h2 class="sale__title title">Акции дня</h2>
+                  <div class="head-sale__button">
+                     <button class="head-sale__button-arrow slider-left icon-arrow-left"></button>
+                     <button class="head-sale__button-arrow slider-right icon-arrow-right"></button>
+                  </div>
+               </div>
+               <div class="sale__content content-sale">
+                  <div class="content-sale__slider slider">
+                @if (ViewBag.Dishes != null)
+                {
+                @foreach(var dish in ViewBag.Dishes)
+            {
+                    @if (count++ < 6)
+                    {
+                     <div class="slider__item item-slider">
+                        <div class="item-slider__image">
+                           <img src="@dish.Link" alt="food">
+                        </div>
+                        <div class="item-slider__name height-function-name">@dish.Name</div>
+                        <div class="item-slider__price">@dish.Price ₽</div>
+                        <div class="animation-block control" style="padding: 20px 0">
+                                <div class="button-default no block-count">
+                                 <div class="control-item-slider control-count">
+                                    <input value="−" type="button" class="control-item-slider__button sub" onclick="location.href='@Url.Action("AntiAdd", "Dish", new { id = dish.Dish_ID, price = dish.Price })'" />
+                                    <span class="control-item-slider__count count">
+                                        @if (dish.count == null) {
+                                            @empty
+                                        } else {
+                                            @dish.count
+                                        }
+                                    </span>
+                                    <input value="+" type="button" class="control-item-slider__button inc" onclick="location.href='@Url.Action("Add", "Dish", new { id = dish.Dish_ID, price = dish.Price })'" />
+                                </div>
+                            </div>
+                            </div>
+                     </div>
+                    }
+            }
+                }
+                  </div>
+               </div>
+            </div>
+         </section>
+         <section class="choice block">
+            <div class="choice__container container">
+               <h2 class="choice__title title">Выберите главный продукт, а мы подберём блюдо</h2>
+               <div class="choice__content content-choice block">
+            @if (ViewBag.Products != null)
+            {
+                @foreach(var product in ViewBag.Products)
+                {
+                      <a href="@Url.Action("SaveProduct", "Dish", new { product = product.Product_ID })" class="content-choice__item item-choice">
+                     <div class="item-choice__image">
+                         <img src = "@product.Link" alt="image">
+                     </div>
+                     <div class="item-choice__text">@product.Name</div>
+                      </a>
+                }
+            }
+               </div>
+               <h2 class="choice__title title">Вас могут заинтересовать наши категории блюд</h2>
+               <div class="choice__content content-choice">
+            @if (ViewBag.Category != null)
+            {
+                @foreach(var category in ViewBag.Category)
+                {
+                      <a href="@Url.Action("SaveCategory", "Dish", new { category = category.CategoryId })" class="content-choice__item item-choice">
+                     <div class="item-choice__image">
+                         <img src = "@category.Link" alt="image">
+                     </div>
+                     <div class="item-choice__text">@category.Name_Of_Category</div>
+                      </a>
+                }
+            }
+               </div>
+            </div>
+         </section>
+         <section class="sign block">
+            <div class="sign__container container">
+               <div class="sign__content content-sign">
+                  <h2 class="content-sign__title title">Подпишитесь на наши новости</h2>
+                  <form class="form sign-news">
+                     <input class="email place-form" type="text" name="email" placeholder="Email">
+                     <input class="custom-checkbox politic-check" type="checkbox" id="politic" name="politic"
+                        value="yes">
+                     <label class="label" for="politic">Я принимаю <a href="#">Политику конфиденциальности</a></label>
+                     <input class="input send" type="submit" value="Подписаться" name="submit">
+                  </form>
+               </div>
+               <div class="sign__image">
+                  <picture><source srcset="/img/sign/news.webp" type="image/webp"><img src="/img/sign/news.png" alt="news"></picture>
+               </div>
+            </div>
+         </section>
+         <section class="work block">
+            <div class="work__container container">
+               <h2 class="work__title title">Где мы работаем</h2>
+               <div class="work__content content-work">
+                  <picture><source srcset="/img/map/map-work.webp" type="image/webp"><img src="/img/map/map-work.png" alt="map"></picture>
+                  <ul class="content-work__list">
+                     <li>МОСКВА</li>
+                     <li>САНКТ-ПЕТЕРБУРГ</li>
+                     <li>НИЖНИЙ НОВГОРОД</li>
+                     <li>КАЗАНЬ</li>
+                     <li>ТУЛА</li>
+                     <li>КРАСНОЯРСК</li>
+                     <li>ВЛАДИВОСТОК</li>
+                  </ul>
+               </div>
+            </div>
+         </section>

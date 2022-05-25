@@ -1,6 +1,16 @@
 ﻿@page
+@model EcoHouse.Controllers.DishController
 @{
-    ViewBag.Title = "Блюдо";
+    if (ViewBag.SaveDish != null)
+    {
+        foreach (var dish in ViewBag.Dishes)
+        {
+            if (dish.Dish_ID == ViewBag.SaveDish)
+            {
+                ViewBag.Title = dish.Name;
+            }
+        }
+    }
 }
 
 @if (ViewBag.SaveDish != null)
@@ -18,10 +28,27 @@
                         </div>
                         <div class="content-dish__control control-dish">
                             <div class="control-dish__price">@dish.Price ₽</div>
-                            <a href="#" class="control-item__button buy button-default">
-                                <picture><source srcset="/img/icons/scooter.webp" type="image/webp"><img src="/img/icons/scooter.png" alt="scooter"></picture>Заказать
+                                @if (dish.count == 0 || dish.count == null)
+                                {
+                        <div class="animation-block button">
+                                <a href="@Url.Action("Add", "Dish", new { id = dish.Dish_ID, price = dish.Price })" class="control-item__button buy button-default">
+                                <img class="scooter" src="/img/icons/scooter.png" alt="scooter">
+                                <span class="text">Заказать</span>
                                 <span class="icon-spoon"></span>
-                            </a>
+                                    </a>
+                            </div>
+                                } else
+                                {
+                        <div class="animation-block control">
+                                <div class="button-default no block-count">
+                                 <div class="control-item-slider control-count">
+                                    <input value="−" type="button" class="control-item-slider__button sub" onclick="location.href='@Url.Action("AntiAdd", "Dish", new { id = dish.Dish_ID, price = dish.Price })'" />
+                                    <span class="control-item-slider__count count">@dish.count</span>
+                                    <input value="+" type="button" class="control-item-slider__button inc" onclick="location.href='@Url.Action("Add", "Dish", new { id = dish.Dish_ID, price = dish.Price })'" />
+                                </div>
+                            </div>
+                            </div>
+                                }
                         </div>
                         <div class="content-dish__about about-dish">
                             <div class="about-dish__desc">@dish.Description</div>
@@ -34,7 +61,7 @@
                             <div class="about-content-item__menu">
                                 <picture><source srcset="/img/icons/menu.webp" type="image/webp"><img src="/img/icons/menu.png" alt="menu"></picture>
                                 <ul class="about-content-item__list">
-                                     @foreach (var ingredient in dish.Structure.Ingredients.Split(','))
+                                     @foreach (var ingredient in dish.Structure.Ingredients.Split('|'))
                                      {
                                          <li>@ingredient.Substring(0, 1).ToUpper()@ingredient.Substring(1, ingredient.Length - 1).ToLower()</li>
                                      }
@@ -45,9 +72,9 @@
                     <div class="dish__process process-dish">
                         <h3 class="small-title">Рецепт:</h3>
                         <ol type="1" class="process-dish__list">
-                            @foreach (var ingredient in dish.Recipe.Split('/'))
+                            @foreach (var recipeStep in dish.Recipe.Split('|'))
                             {
-                                 <li>@ingredient</li>
+                                 <li>@recipeStep</li>
                             }
                         </ol>
                     </div>

@@ -1,4 +1,6 @@
 ﻿using EcoHouse.Storage;
+using Microsoft.AspNetCore.Http;
+
 
 namespace EcoHouse.Logic.Users;
 public class UserManager : IUserManager
@@ -75,6 +77,23 @@ public class UserManager : IUserManager
 
         user.Phone = newPhone;
 
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task RePhoto(string newPhoto_name, string path, int Id)
+    {
+        var user = _context.Users.FirstOrDefault(g => g.Id == Id);
+
+        user.Name_Photo = newPhoto_name;
+        user.Path = path;
+
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task ADRES(int Aid, int Id)
+    {
+        var user = _context.Users.FirstOrDefault(g => g.Id == Id);
+        user.AddressID = Aid;
         await _context.SaveChangesAsync();
     }
     #endregion
